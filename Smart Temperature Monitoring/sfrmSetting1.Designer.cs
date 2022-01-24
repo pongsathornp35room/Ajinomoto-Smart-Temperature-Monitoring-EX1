@@ -28,76 +28,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbSettingNo = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtLow = new System.Windows.Forms.TextBox();
-            this.txtHigh = new System.Windows.Forms.TextBox();
+            this.numHi = new System.Windows.Forms.NumericUpDown();
+            this.numLo = new System.Windows.Forms.NumericUpDown();
+            this.btnSave = new System.Windows.Forms.Button();
             this.txtZone = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtSetting = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numHi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLo)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lbSettingNo
-            // 
-            this.lbSettingNo.Font = new System.Drawing.Font("Calibri", 24F);
-            this.lbSettingNo.ForeColor = System.Drawing.Color.Black;
-            this.lbSettingNo.Location = new System.Drawing.Point(12, 9);
-            this.lbSettingNo.Name = "lbSettingNo";
-            this.lbSettingNo.Size = new System.Drawing.Size(404, 48);
-            this.lbSettingNo.TabIndex = 49;
-            this.lbSettingNo.Text = "SYSTEM SETTING";
-            this.lbSettingNo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.txtLow);
-            this.panel1.Controls.Add(this.txtHigh);
+            this.panel1.Controls.Add(this.numHi);
+            this.panel1.Controls.Add(this.numLo);
+            this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.txtZone);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(90, 73);
+            this.panel1.Location = new System.Drawing.Point(103, 96);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(559, 165);
+            this.panel1.Size = new System.Drawing.Size(559, 187);
             this.panel1.TabIndex = 50;
             // 
-            // txtLow
+            // numHi
             // 
-            this.txtLow.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtLow.Font = new System.Drawing.Font("Calibri", 15.75F);
-            this.txtLow.Location = new System.Drawing.Point(219, 106);
-            this.txtLow.Name = "txtLow";
-            this.txtLow.Size = new System.Drawing.Size(151, 26);
-            this.txtLow.TabIndex = 50;
-            this.txtLow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numHi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.numHi.DecimalPlaces = 2;
+            this.numHi.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.numHi.Location = new System.Drawing.Point(219, 63);
+            this.numHi.Name = "numHi";
+            this.numHi.Size = new System.Drawing.Size(151, 33);
+            this.numHi.TabIndex = 52;
+            this.numHi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtHigh
+            // numLo
             // 
-            this.txtHigh.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtHigh.Font = new System.Drawing.Font("Calibri", 15.75F);
-            this.txtHigh.Location = new System.Drawing.Point(219, 63);
-            this.txtHigh.Name = "txtHigh";
-            this.txtHigh.Size = new System.Drawing.Size(151, 26);
-            this.txtHigh.TabIndex = 50;
-            this.txtHigh.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numLo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.numLo.DecimalPlaces = 2;
+            this.numLo.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.numLo.Location = new System.Drawing.Point(219, 106);
+            this.numLo.Name = "numLo";
+            this.numLo.Size = new System.Drawing.Size(151, 33);
+            this.numLo.TabIndex = 52;
+            this.numLo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnSave
+            // 
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.Font = new System.Drawing.Font("Calibri", 15.75F);
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.Location = new System.Drawing.Point(433, 147);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(121, 35);
+            this.btnSave.TabIndex = 51;
+            this.btnSave.Text = "Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSave_MouseDown);
             // 
             // txtZone
             // 
+            this.txtZone.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtZone.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtZone.Font = new System.Drawing.Font("Calibri", 15.75F);
-            this.txtZone.Location = new System.Drawing.Point(219, 17);
+            this.txtZone.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold);
+            this.txtZone.Location = new System.Drawing.Point(219, 18);
             this.txtZone.Name = "txtZone";
             this.txtZone.Size = new System.Drawing.Size(294, 26);
             this.txtZone.TabIndex = 50;
+            this.txtZone.Text = "Name";
             this.txtZone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
@@ -155,19 +171,56 @@
             this.label1.Text = "ZONE  NAME";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnSave
+            // panel2
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.Font = new System.Drawing.Font("Calibri", 15.75F);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
-            this.btnSave.Location = new System.Drawing.Point(527, 245);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(121, 35);
-            this.btnSave.TabIndex = 51;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.label8);
+            this.panel2.Controls.Add(this.txtSetting);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(744, 90);
+            this.panel2.TabIndex = 55;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1233, 40);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 53;
+            this.label6.Text = "label6";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(1233, 26);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 53;
+            this.label7.Text = "label7";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(1233, 9);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(35, 13);
+            this.label8.TabIndex = 53;
+            this.label8.Text = "label8";
+            // 
+            // txtSetting
+            // 
+            this.txtSetting.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSetting.ForeColor = System.Drawing.Color.White;
+            this.txtSetting.Location = new System.Drawing.Point(103, 27);
+            this.txtSetting.Name = "txtSetting";
+            this.txtSetting.Size = new System.Drawing.Size(559, 34);
+            this.txtSetting.TabIndex = 47;
+            this.txtSetting.Text = "SYSTEM SETTING";
+            this.txtSetting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // sfrmSetting1
             // 
@@ -175,30 +228,37 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(744, 311);
-            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.lbSettingNo);
             this.Name = "sfrmSetting1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Temperature Monitoring  - Setting";
+            this.Load += new System.EventHandler(this.sfrmSetting1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numHi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numLo)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lbSettingNo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtLow;
-        private System.Windows.Forms.TextBox txtHigh;
         private System.Windows.Forms.TextBox txtZone;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label txtSetting;
+        private System.Windows.Forms.NumericUpDown numLo;
+        private System.Windows.Forms.NumericUpDown numHi;
     }
 }

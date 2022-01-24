@@ -41,7 +41,12 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbbSampling = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -117,9 +122,9 @@
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Calibri", 14F);
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(396, 9);
+            this.label4.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.Location = new System.Drawing.Point(393, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(178, 34);
             this.label4.TabIndex = 48;
@@ -128,9 +133,9 @@
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Calibri", 14F);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(208, 9);
+            this.label1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(204, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(174, 34);
             this.label1.TabIndex = 47;
@@ -139,9 +144,9 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Calibri", 14F);
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(14, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(174, 34);
             this.label2.TabIndex = 47;
@@ -165,12 +170,13 @@
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOk.ForeColor = System.Drawing.Color.White;
-            this.btnOk.Location = new System.Drawing.Point(591, 44);
+            this.btnOk.Location = new System.Drawing.Point(780, 44);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(100, 34);
             this.btnOk.TabIndex = 52;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = false;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnExport
             // 
@@ -178,21 +184,27 @@
             this.btnExport.FlatAppearance.BorderSize = 0;
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExport.Location = new System.Drawing.Point(1279, 44);
+            this.btnExport.Location = new System.Drawing.Point(898, 44);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(100, 34);
             this.btnExport.TabIndex = 52;
             this.btnExport.Text = "EXPORT";
             this.btnExport.UseVisualStyleBackColor = false;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnExport);
             this.panel1.Controls.Add(this.btnOk);
+            this.panel1.Controls.Add(this.cbbSampling);
             this.panel1.Controls.Add(this.cbbSelectedData);
             this.panel1.Controls.Add(this.dtDateTo);
             this.panel1.Controls.Add(this.dtDateFrom);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
@@ -201,6 +213,33 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1391, 90);
             this.panel1.TabIndex = 53;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1233, 40);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 53;
+            this.label6.Text = "label6";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1233, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 53;
+            this.label5.Text = "label5";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1233, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 53;
+            this.label3.Text = "label3";
             // 
             // panel2
             // 
@@ -215,6 +254,27 @@
             this.panel2.Size = new System.Drawing.Size(1391, 566);
             this.panel2.TabIndex = 54;
             // 
+            // label7
+            // 
+            this.label7.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.White;
+            this.label7.Location = new System.Drawing.Point(586, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(174, 34);
+            this.label7.TabIndex = 47;
+            this.label7.Text = "SAMPLING TIME :";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // cbbSampling
+            // 
+            this.cbbSampling.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbSampling.FormattingEnabled = true;
+            this.cbbSampling.ItemHeight = 26;
+            this.cbbSampling.Location = new System.Drawing.Point(590, 44);
+            this.cbbSampling.Name = "cbbSampling";
+            this.cbbSampling.Size = new System.Drawing.Size(174, 34);
+            this.cbbSampling.TabIndex = 51;
+            // 
             // sfrmData1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,6 +287,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Temperature Monitoring  - Data";
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -248,5 +309,10 @@
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cbbSampling;
+        private System.Windows.Forms.Label label7;
     }
 }

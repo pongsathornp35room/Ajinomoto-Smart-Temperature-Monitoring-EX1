@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -41,7 +40,7 @@ namespace Smart_Temperature_Monitoring
             while (true)
             {
                 DateTime dt = DateTime.Now;
-                BtnCurrentTime.Text = dt.ToString("HH:mm");
+                BtnCurrentTime.Text = dt.ToString("HH:mm:ss");
                 LbDate.Text = dt.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
 
                 //  Blink LbTimeBlink
@@ -70,7 +69,7 @@ namespace Smart_Temperature_Monitoring
         //  Subform section
         internal void SelectSubAdminMenu(Form childForm)
         {
-            openChildForm( childForm);
+            openChildForm(childForm);
         }
         private void openChildForm(Form childForm)
         {

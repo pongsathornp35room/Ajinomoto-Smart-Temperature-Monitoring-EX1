@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using LiveCharts; //Core of the library
+using LiveCharts.Wpf; //The WPF controls
+using Microsoft.Data.SqlClient;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-using static Smart_Temperature_Monitoring.InterfaceDB;
-using Microsoft.Data.SqlClient;
-
-using LiveCharts; //Core of the library
-using LiveCharts.Wpf; //The WPF controls
-using LiveCharts.WinForms; //the WinForm wrappers
-using System.Net;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading;
+using System.Windows.Forms;
+using static Smart_Temperature_Monitoring.InterfaceDB;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace Smart_Temperature_Monitoring
 {
@@ -26,12 +20,22 @@ namespace Smart_Temperature_Monitoring
         public static string _selectedExport = "";
         public static string _selectedEvent = "";
         public static int _selectedData = 0;
-        public static int _selectedSetting = 0;
+        public static int _SettingId = 0;
+        public static int _SettingZoneId = 0;
+        public static int _Setting1 = 0;
+        public static int _Setting2 = 0;
+        public static int _Setting3 = 0;
+        public static bool _newSetting = false;
+        public static int _EventZoneId = 0;
 
         //  Local varriable
-        private static DataTable _pGet_actual_value = new DataTable();
-        private static DataTable _pGet_setting = new DataTable();
-        private static DataTable _pGet_24hr_value = new DataTable();
+        private static DataTable _pGet_Temp_actual = new DataTable();
+        private static DataTable _pGet_setting_actual = new DataTable();
+        private static DataTable _pGet_Temp_data = new DataTable();
+        private static DataTable _pGet_event_all = new DataTable();
+
+        private static int actualTempID = 0;
+        private static int actualGvRow = 0;
 
         //  Form load
         public sfrmOverview()
@@ -41,7 +45,7 @@ namespace Smart_Temperature_Monitoring
         private void sfrmOverview_Load(object sender, EventArgs e)
         {
             //  Intial
-            initH24Temp();
+            initTempData();
 
             //  สร้าง Thread threadUpdateTime
             Thread threadUpdateTime = new Thread(ThreadUpdateTime);
@@ -55,128 +59,383 @@ namespace Smart_Temperature_Monitoring
 
             while (true)
             {
-                _pGet_24hr_value = new DataTable();
-                _pGet_24hr_value = pGet_24hr_value();
-                if (_pGet_24hr_value != null)
-                {
-                    //  update line
-                    chTemp1.Series[0].Values.Clear();
-                    chTemp2.Series[0].Values.Clear();
-                    chTemp3.Series[0].Values.Clear();
-
-                    var values1 = new ChartValues<double>();
-                    var values2 = new ChartValues<double>();
-                    var values3 = new ChartValues<double>();
-                    for (var i = 0; i < 24; i++)
-                    {
-                        chTemp1.Series[0].Values.Add(Convert.ToDouble((_pGet_24hr_value.Rows[i]["temp1"])));
-                        chTemp2.Series[0].Values.Add(Convert.ToDouble((_pGet_24hr_value.Rows[i]["temp2"])));
-                        chTemp3.Series[0].Values.Add(Convert.ToDouble((_pGet_24hr_value.Rows[i]["temp3"])));
-                    }
-
-                    //  update actual
-
-                }
+                // Get actual data
+                _actualTemp();
+                _actual_setting();
+                //_get_event_all();   
 
                 //  Delay
-                Thread.Sleep(1000);
+                Thread.Sleep(60000);
             }
         }
 
         //  Display function
-        private void actualTemp()
+        public void _actualTemp()
         {
-            _pGet_actual_value = new DataTable();
-            _pGet_actual_value = pGet_actual_value();
-            if (_pGet_actual_value != null)
+            _pGet_Temp_actual = new DataTable();
+            _pGet_Temp_actual = pGet_Temp_actual();
+            if (_pGet_Temp_actual != null)
             {
-                lbValue1.Text = _pGet_actual_value.Rows[0]["temp1"].ToString();
-                lbValue2.Text = _pGet_actual_value.Rows[0]["temp2"].ToString();
-                lbValue3.Text = _pGet_actual_value.Rows[0]["temp3"].ToString();
+                // actual temp
+                lbValue1.Text = _pGet_Temp_actual.Rows[0]["temp1"].ToString();
+                lbValue2.Text = _pGet_Temp_actual.Rows[0]["temp2"].ToString();
+                lbValue3.Text = _pGet_Temp_actual.Rows[0]["temp3"].ToString();
+
+                // Keep actual setting id
+                _Setting1 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t1"]);
+                _Setting2 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t2"]);
+                _Setting3 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t3"]);
+
+                // Keep actual ID
+                actualTempID = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ID"]);
+
+
+                // change background coler 
+                if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "OK")
+                {
+                    panelMain1.BackColor = Color.FromArgb(128, 255, 128);
+                    lbZone1.BackColor = Color.FromArgb(0, 192, 0);
+                }
+                else
+                {
+                    panelMain1.BackColor = Color.FromArgb(255, 128, 128);
+                    lbZone1.BackColor = Color.Red;
+                }
+
+                if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "OK")
+                {
+                    panelMain2.BackColor = Color.FromArgb(128, 255, 128);
+                    lbZone2.BackColor = Color.FromArgb(0, 192, 0);
+                }
+                else
+                {
+                    panelMain2.BackColor = Color.FromArgb(255, 128, 128);
+                    lbZone2.BackColor = Color.Red;
+                }
+
+                if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "OK")
+                {
+                    panelMain3.BackColor = Color.FromArgb(128, 255, 128);
+                    lbZone3.BackColor = Color.FromArgb(0, 192, 0);
+                }
+                else
+                {
+                    panelMain3.BackColor = Color.FromArgb(255, 128, 128);
+                    lbZone3.BackColor = Color.Red;
+                }
+
+                // plot graph
+                chTemp1.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1"])));
+                chTemp1.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_hi"])));
+                chTemp1.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_lo"])));
+
+                chTemp2.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2"])));
+                chTemp2.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_hi"])));
+                chTemp2.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_lo"])));
+
+                chTemp3.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3"])));
+                chTemp3.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_hi"])));
+                chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
+
+                // plot gv status
+                actualGvRow += 1;
+                gvData1.ClearSelection();
+                gvData2.ClearSelection();
+                gvData3.ClearSelection();
+                if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
+                {
+                    gvData1.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
+                    gvData1.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                }
+                if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "NG")
+                {
+                    gvData2.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
+                    gvData2.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                }
+                if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "NG")
+                {
+                    gvData3.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
+                    gvData3.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                }
+
             }
         }
-        private void limitTemp()
+
+        public void _actual_setting()
         {
-            _pGet_setting = new DataTable();
-            _pGet_setting = pGet_setting();
-            if (_pGet_actual_value != null)
+            _pGet_setting_actual = new DataTable();
+            _pGet_setting_actual = pGet_setting_actual();
+            if (_pGet_setting_actual != null)
             {
-                lbZone1.Text = _pGet_setting.Rows[0]["zone_name"].ToString();
-                lbLow1.Text = _pGet_setting.Rows[0]["limit_low"].ToString();
-                lbHigh1.Text = _pGet_setting.Rows[0]["limit_hi"].ToString();
+                lbZone1.Text = _pGet_setting_actual.Rows[0]["t1_name"].ToString();
+                lbLow1.Text = _pGet_setting_actual.Rows[0]["temp1_lo"].ToString();
+                lbHigh1.Text = _pGet_setting_actual.Rows[0]["temp1_hi"].ToString();
 
-                lbZone2.Text = _pGet_setting.Rows[1]["zone_name"].ToString();
-                lbLow2.Text = _pGet_setting.Rows[1]["limit_low"].ToString();
-                lbHigh2.Text = _pGet_setting.Rows[1]["limit_hi"].ToString();
+                lbZone2.Text = _pGet_setting_actual.Rows[0]["t2_name"].ToString();
+                lbLow2.Text = _pGet_setting_actual.Rows[0]["temp2_lo"].ToString();
+                lbHigh2.Text = _pGet_setting_actual.Rows[0]["temp2_hi"].ToString();
 
-                lbZone3.Text = _pGet_setting.Rows[2]["zone_name"].ToString();
-                lbLow3.Text = _pGet_setting.Rows[2]["limit_low"].ToString();
-                lbHigh3.Text = _pGet_setting.Rows[2]["limit_hi"].ToString();
-
-                //gvLimit.DataSource = _pGet_setting;
+                lbZone3.Text = _pGet_setting_actual.Rows[0]["t3_name"].ToString();
+                lbLow3.Text = _pGet_setting_actual.Rows[0]["temp3_lo"].ToString();
+                lbHigh3.Text = _pGet_setting_actual.Rows[0]["temp3_hi"].ToString();
             }
         }
-        private void initH24Temp()
+
+        public void _get_event_all()
         {
-            _pGet_24hr_value = new DataTable();
-            _pGet_24hr_value = pGet_24hr_value();
-            if (_pGet_24hr_value != null)
+            _pGet_event_all = new DataTable();
+            _pGet_event_all = pGet_event_all();
+            if (_pGet_event_all != null)
+            {
+                //  Clear gv
+                //gvEventAll.Columns.Clear();
+                //gvEventAll.Rows.Clear();
+                //gvEventAll.DataSource = null;
+                gvEventAll.ClearSelection();
+
+                gvEventAll.DataSource = _pGet_event_all;
+            }
+        }
+
+        private void initTempData()
+        {
+            _pGet_Temp_data = new DataTable();
+            _pGet_Temp_data = pGet_Temp_data();
+            if (_pGet_Temp_data != null)
             {
                 var values1 = new ChartValues<double>();
                 var values2 = new ChartValues<double>();
                 var values3 = new ChartValues<double>();
-                for (var i = 0; i < 24; i++)
+
+                var hi1 = new ChartValues<double>();
+                var lo1 = new ChartValues<double>();
+
+                var hi2 = new ChartValues<double>();
+                var lo2 = new ChartValues<double>();
+
+                var hi3 = new ChartValues<double>();
+                var lo3 = new ChartValues<double>();
+
+
+                // plot graph
+                for (var i = 0; i < _pGet_Temp_data.Rows.Count; i++)
                 {
-                    values1.Add(Convert.ToDouble(_pGet_24hr_value.Rows[i]["temp1"]));
-                    values2.Add(Convert.ToDouble(_pGet_24hr_value.Rows[i]["temp2"]));
-                    values3.Add(Convert.ToDouble(_pGet_24hr_value.Rows[i]["temp3"]));
+                    values1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1"]));
+                    hi1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1_hi"]));
+                    lo1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1_lo"]));
+
+                    values2.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp2"]));
+                    hi2.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp2_hi"]));
+                    lo2.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp2_lo"]));
+
+                    values3.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp3"]));
+                    hi3.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp3_hi"]));
+                    lo3.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp3_lo"]));
                 }
 
                 chTemp1.Series.Add(new LineSeries
                 {
-                    Values = values1
+                    Values = values1,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp1.Series.Add(new LineSeries
+                {
+                    Values = hi1,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp1.Series.Add(new LineSeries
+                {
+                    Values = lo1,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                    //Stroke = Brushes.LightSalmon
+
                 });
 
                 chTemp2.Series.Add(new LineSeries
                 {
-                    Values = values2
+                    Values = values2,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp2.Series.Add(new LineSeries
+                {
+                    Values = hi2,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp2.Series.Add(new LineSeries
+                {
+                    Values = lo2,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                    //Stroke = Brushes.LightSalmon
                 });
 
                 chTemp3.Series.Add(new LineSeries
                 {
-                    Values = values3
+                    Values = values3,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp3.Series.Add(new LineSeries
+                {
+                    Values = hi3,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                });
+
+                chTemp3.Series.Add(new LineSeries
+                {
+                    Values = lo3,
+                    Fill = Brushes.Transparent,
+                    PointGeometrySize = 0,
+                    StrokeThickness = 2
+                    //Stroke = Brushes.LightSalmon
                 });
 
                 chTemp1.AxisX.Add(new Axis
                 {
-                    MinValue = 0,
-                    MaxValue = 23
+                    MinValue = 00,
+                    MaxValue = 287,
+                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
+                    //LabelFormatter = value => 
+                    //Labels = new[] { "00:00", "01:00", "02:00", "03:00", "04:00" }
+                });
+
+                chTemp1.AxisY.Add(new Axis
+                {
+                    MinValue = 25,
+                    MaxValue = 40
                 });
 
                 chTemp2.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 23
+                    MaxValue = 287,
+                    LabelFormatter = val => new System.DateTime((long)val).ToString("dd MMM")
+                });
+
+                chTemp2.AxisY.Add(new Axis
+                {
+                    MinValue = 25,
+                    MaxValue = 40
                 });
 
                 chTemp3.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 23
+                    MaxValue = 287
                 });
+
+                chTemp3.AxisY.Add(new Axis
+                {
+                    MinValue = 25,
+                    MaxValue = 40
+                });
+
+
+                // plot gv status
+
+                //Declare array for keep data
+                string[] status1 = new string[288];
+                string[] status2 = new string[288];
+                string[] status3 = new string[288];
+
+                //  Clear gv
+                //gvData1.Columns.Clear();
+                //gvData1.Rows.Clear();
+                //gvData1.DataSource = null;
+
+                //Keep data to array
+                for (int i = 0; i < _pGet_Temp_data.Rows.Count; i++)
+                {
+                    status1[i] = _pGet_Temp_data.Rows[i]["temp1_result"].ToString();
+                    status2[i] = _pGet_Temp_data.Rows[i]["temp2_result"].ToString();
+                    status3[i] = _pGet_Temp_data.Rows[i]["temp3_result"].ToString();
+                }
+
+                gvData1.Rows.Clear();
+                gvData2.Rows.Clear();
+                gvData3.Rows.Clear();
+
+
+                //Add array to DataGridView
+                gvData1.Rows.Add(status1);
+                gvData2.Rows.Add(status2);
+                gvData3.Rows.Add(status3);
+
+                //Manage DataGridView
+                gvData1.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
+                gvData1.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+
+                gvData2.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
+                gvData2.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+
+                gvData3.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
+                gvData3.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+                for (int i = 0; i < _pGet_Temp_data.Rows.Count; i++)
+                {
+                    if (status1[i] == "NG")
+                    {
+                        gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+
+                    if (status2[i] == "NG")
+                    {
+                        gvData2.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+
+                    if (status3[i] == "NG")
+                    {
+                        gvData3.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData3.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+
+                    actualGvRow = _pGet_Temp_data.Rows.Count;
+                }
+
+                // Keep setting id
+                if (_pGet_Temp_data.Rows.Count > 0)
+                {
+                    _Setting1 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t1"]);
+                    _Setting2 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t2"]);
+                    _Setting3 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t3"]);
+
+                    actualTempID = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ID"]);
+                }
+
             }
+
         }
 
         //  SQL interface section
-        private static DataTable pGet_actual_value()
+        private static DataTable pGet_Temp_actual()
         {
             DataTable dataTable = new DataTable();
             DataSet ds = new DataSet();
             try
             {
-                //  อ่านค่าจาก Store pGet_actual_value
+                //  อ่านค่าจาก Store pGet_Temp_actual
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                ds = new DBClass().SqlExcSto("pGet_actual_value", "DbSet", param);
+                ds = new DBClass().SqlExcSto("pGet_Temp_actual", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
             catch (SqlException)
@@ -189,15 +448,18 @@ namespace Smart_Temperature_Monitoring
             }
             return dataTable;
         }
-        private static DataTable pGet_setting()
+
+        private static DataTable pGet_Temp_data()
         {
             DataTable dataTable = new DataTable();
             DataSet ds = new DataSet();
             try
             {
-                //  อ่านค่าจาก Store pGet_actual_value
+                //  อ่านค่าจาก Store pGet_actual_value 2022-01-15 00:00:00.000 pGet_Temp_data
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                ds = new DBClass().SqlExcSto("pGet_setting", "DbSet", param);
+                //param.AddWithValue("@start_datetime", SqlDbType.DateTime).Value = "2022-01-13 00:00:00.000";
+                //param.AddWithValue("@end_datetime", SqlDbType.DateTime).Value = "2022-01-13 01:00:00.000";
+                ds = new DBClass().SqlExcSto("pGet_Temp_data", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
             catch (SqlException)
@@ -210,7 +472,8 @@ namespace Smart_Temperature_Monitoring
             }
             return dataTable;
         }
-        private static DataTable pGet_24hr_value()
+
+        private static DataTable pGet_setting_actual()
         {
             DataTable dataTable = new DataTable();
             DataSet ds = new DataSet();
@@ -218,7 +481,29 @@ namespace Smart_Temperature_Monitoring
             {
                 //  อ่านค่าจาก Store pGet_actual_value
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                ds = new DBClass().SqlExcSto("pGet_24hr_value", "DbSet", param);
+                ds = new DBClass().SqlExcSto("pGet_setting_actual", "DbSet", param);
+                dataTable = ds.Tables[0];
+            }
+            catch (SqlException)
+            {
+                dataTable = null;
+            }
+            catch (Exception)
+            {
+                dataTable = null;
+            }
+            return dataTable;
+        }
+
+        private static DataTable pGet_event_all()
+        {
+            DataTable dataTable = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                //  อ่านค่าจาก Store pGet_actual_value
+                SqlParameterCollection param = new SqlCommand().Parameters;
+                ds = new DBClass().SqlExcSto("pGet_event_all", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
             catch (SqlException)
@@ -236,7 +521,7 @@ namespace Smart_Temperature_Monitoring
         private void btnExport1_Click(object sender, EventArgs e)
         {
             _selectedExport = "A";
-            sfrmExport1 sfrmExport1 = new sfrmExport1();
+            sfrmReport1 sfrmExport1 = new sfrmReport1();
             sfrmExport1.Show();
         }
         private void btnData1_Click(object sender, EventArgs e)
@@ -259,24 +544,27 @@ namespace Smart_Temperature_Monitoring
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            actualTemp();
-            limitTemp();
+            //actualTemp();
+            //limitTemp();
         }
         private void btnSetting1_Click(object sender, EventArgs e)
         {
-            _selectedSetting = 1;
+            _SettingId = _Setting1;
+            _SettingZoneId = 1;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
         }
         private void btnSetting2_Click(object sender, EventArgs e)
         {
-            _selectedSetting = 2;
+            _SettingId = _Setting2;
+            _SettingZoneId = 2;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
         }
         private void btnSetting3_Click(object sender, EventArgs e)
         {
-            _selectedSetting = 3;
+            _SettingId = _Setting3;
+            _SettingZoneId = 3;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
         }
@@ -353,65 +641,28 @@ namespace Smart_Temperature_Monitoring
         //  Label change
         private void lbValue_TextChanged(object sender, EventArgs e)
         {
-            var label = (Label)sender;
 
-            var isNumeric = double.TryParse(label.Text, out double n);
-            if (isNumeric)
-            {
-                double value = 0.0; double upper = 0.0; double lower = 0.0;
+        }
 
-                if (label.Name == "lbValue1")
-                {
-                    value = (double)Convert.ToDouble(lbValue1.Text);
-                    upper = (double)Convert.ToDouble(lbHigh1.Text);
-                    lower = (double)Convert.ToDouble(lbLow1.Text);
-                    if (lower <= value && value <= upper)
-                    {
-                        panelMain1.BackColor = Color.FromArgb(128, 255, 128);
-                        lbZone1.BackColor = Color.FromArgb(0, 192, 0);
-                    }
-                    else
-                    {
-                        panelMain1.BackColor = Color.FromArgb(255, 128, 128);
-                        lbZone1.BackColor = Color.Red;
-                    }
-                }
-                else if (label.Name == "lbValue2")
-                {
-                    value = (double)Convert.ToDouble(lbValue2.Text);
-                    upper = (double)Convert.ToDouble(lbHigh2.Text);
-                    lower = (double)Convert.ToDouble(lbLow2.Text);
-                    if (lower <= value && value <= upper)
-                    {
-                        panelMain2.BackColor = Color.FromArgb(128, 255, 128);
-                        lbZone2.BackColor = Color.FromArgb(0, 192, 0);
-                    }
-                    else
-                    {
-                        panelMain2.BackColor = Color.FromArgb(255, 128, 128);
-                        lbZone2.BackColor = Color.Red;
-                    }
-                }
-                else if (label.Name == "lbValue3")
-                {
-                    value = (double)Convert.ToDouble(lbValue3.Text);
-                    upper = (double)Convert.ToDouble(lbHigh3.Text);
-                    lower = (double)Convert.ToDouble(lbLow3.Text);
-                    if (lower <= value && value <= upper)
-                    {
-                        panelMain3.BackColor = Color.FromArgb(128, 255, 128);
-                        lbZone3.BackColor = Color.FromArgb(0, 192, 0);
-                    }
-                    else
-                    {
-                        panelMain3.BackColor = Color.FromArgb(255, 128, 128);
-                        lbZone3.BackColor = Color.Red;
-                    }
-                }
-            }
+        private void btnEven1_Click(object sender, EventArgs e)
+        {
+            _EventZoneId = 1;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
+        }
 
+        private void btnEven2_Click(object sender, EventArgs e)
+        {
+            _EventZoneId = 2;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
+        }
 
-
+        private void btnEven3_Click(object sender, EventArgs e)
+        {
+            _EventZoneId = 3;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
         }
     }
 }
