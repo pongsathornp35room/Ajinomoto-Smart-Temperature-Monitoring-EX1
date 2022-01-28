@@ -34,7 +34,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOk = new System.Windows.Forms.Button();
-            this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
+            this.calenReport = new System.Windows.Forms.MonthCalendar();
+            this.txtDateSelected = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,27 +97,42 @@
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOk.ForeColor = System.Drawing.Color.White;
-            this.btnOk.Location = new System.Drawing.Point(268, 271);
+            this.btnOk.Location = new System.Drawing.Point(416, 269);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(227, 34);
+            this.btnOk.Size = new System.Drawing.Size(79, 34);
             this.btnOk.TabIndex = 54;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = false;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
-            // monthCalendar1
+            // calenReport
             // 
-            this.monthCalendar1.Location = new System.Drawing.Point(268, 102);
-            this.monthCalendar1.Name = "monthCalendar1";
-            this.monthCalendar1.TabIndex = 55;
+            this.calenReport.Location = new System.Drawing.Point(268, 102);
+            this.calenReport.MaxSelectionCount = 1;
+            this.calenReport.Name = "calenReport";
+            this.calenReport.TabIndex = 55;
+            this.calenReport.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.calenReport_DateSelected);
+            // 
+            // txtDateSelected
+            // 
+            this.txtDateSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
+            this.txtDateSelected.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDateSelected.ForeColor = System.Drawing.SystemColors.Window;
+            this.txtDateSelected.Location = new System.Drawing.Point(270, 269);
+            this.txtDateSelected.Name = "txtDateSelected";
+            this.txtDateSelected.Size = new System.Drawing.Size(140, 34);
+            this.txtDateSelected.TabIndex = 56;
+            this.txtDateSelected.Text = "Date";
+            this.txtDateSelected.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // sfrmReport1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(744, 311);
+            this.Controls.Add(this.txtDateSelected);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.monthCalendar1);
+            this.Controls.Add(this.calenReport);
             this.Controls.Add(this.panel1);
             this.Name = "sfrmReport1";
             this.Text = "Smart Temperature Monitoring  - Report";
@@ -134,6 +150,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.MonthCalendar monthCalendar1;
+        private System.Windows.Forms.MonthCalendar calenReport;
+        private System.Windows.Forms.Label txtDateSelected;
     }
 }

@@ -1042,7 +1042,7 @@
             this.gvData3.AllowUserToResizeColumns = false;
             this.gvData3.AllowUserToResizeRows = false;
             this.gvData3.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gvData3.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.gvData3.BackgroundColor = System.Drawing.Color.LightGray;
             this.gvData3.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvData3.CausesValidation = false;
             this.gvData3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1339,7 +1339,7 @@
             this.gvData3.Enabled = false;
             this.gvData3.EnableHeadersVisualStyles = false;
             this.gvData3.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData3.Location = new System.Drawing.Point(22, 186);
+            this.gvData3.Location = new System.Drawing.Point(18, 186);
             this.gvData3.MultiSelect = false;
             this.gvData3.Name = "gvData3";
             this.gvData3.ReadOnly = true;
@@ -3268,7 +3268,7 @@
             this.gvData1.AllowUserToResizeColumns = false;
             this.gvData1.AllowUserToResizeRows = false;
             this.gvData1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gvData1.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.gvData1.BackgroundColor = System.Drawing.Color.LightGray;
             this.gvData1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvData1.CausesValidation = false;
             this.gvData1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -3565,7 +3565,7 @@
             this.gvData1.Enabled = false;
             this.gvData1.EnableHeadersVisualStyles = false;
             this.gvData1.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData1.Location = new System.Drawing.Point(22, 186);
+            this.gvData1.Location = new System.Drawing.Point(18, 186);
             this.gvData1.MultiSelect = false;
             this.gvData1.Name = "gvData1";
             this.gvData1.ReadOnly = true;
@@ -5511,7 +5511,7 @@
             this.gvData2.AllowUserToResizeColumns = false;
             this.gvData2.AllowUserToResizeRows = false;
             this.gvData2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.gvData2.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.gvData2.BackgroundColor = System.Drawing.Color.LightGray;
             this.gvData2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvData2.CausesValidation = false;
             this.gvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -5808,7 +5808,7 @@
             this.gvData2.Enabled = false;
             this.gvData2.EnableHeadersVisualStyles = false;
             this.gvData2.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData2.Location = new System.Drawing.Point(22, 187);
+            this.gvData2.Location = new System.Drawing.Point(18, 187);
             this.gvData2.MultiSelect = false;
             this.gvData2.Name = "gvData2";
             this.gvData2.ReadOnly = true;

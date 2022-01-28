@@ -29,24 +29,18 @@
         private void InitializeComponent()
         {
             this.cartesianChart1 = new LiveCharts.WinForms.CartesianChart();
-            this.btnZoom = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
-            this.btnPrevious = new System.Windows.Forms.Button();
             this.dtDateTo = new System.Windows.Forms.DateTimePicker();
             this.dtDateFrom = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.cbbSelectedData = new System.Windows.Forms.ComboBox();
+            this.cbbSelectedZone = new System.Windows.Forms.ComboBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
             this.cbbSampling = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -59,45 +53,6 @@
             this.cartesianChart1.TabIndex = 4;
             this.cartesianChart1.Text = "cartesianChart1";
             // 
-            // btnZoom
-            // 
-            this.btnZoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.btnZoom.FlatAppearance.BorderSize = 0;
-            this.btnZoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnZoom.Location = new System.Drawing.Point(99, 8);
-            this.btnZoom.Name = "btnZoom";
-            this.btnZoom.Size = new System.Drawing.Size(50, 25);
-            this.btnZoom.TabIndex = 5;
-            this.btnZoom.Text = "Zoom";
-            this.btnZoom.UseVisualStyleBackColor = false;
-            this.btnZoom.Click += new System.EventHandler(this.btZoom_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.btnNext.FlatAppearance.BorderSize = 0;
-            this.btnNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNext.Location = new System.Drawing.Point(150, 8);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(50, 25);
-            this.btnNext.TabIndex = 6;
-            this.btnNext.Text = ">>";
-            this.btnNext.UseVisualStyleBackColor = false;
-            this.btnNext.Click += new System.EventHandler(this.btNext_Click);
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(230)))), ((int)(((byte)(230)))));
-            this.btnPrevious.FlatAppearance.BorderSize = 0;
-            this.btnPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrevious.Location = new System.Drawing.Point(48, 8);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(50, 25);
-            this.btnPrevious.TabIndex = 7;
-            this.btnPrevious.Text = "<<";
-            this.btnPrevious.UseVisualStyleBackColor = false;
-            this.btnPrevious.Click += new System.EventHandler(this.btPrevious_Click);
-            // 
             // dtDateTo
             // 
             this.dtDateTo.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(230)))), ((int)(((byte)(153)))));
@@ -108,6 +63,7 @@
             this.dtDateTo.Name = "dtDateTo";
             this.dtDateTo.Size = new System.Drawing.Size(174, 34);
             this.dtDateTo.TabIndex = 50;
+            this.dtDateTo.ValueChanged += new System.EventHandler(this.dtDateTo_ValueChanged);
             // 
             // dtDateFrom
             // 
@@ -119,6 +75,7 @@
             this.dtDateFrom.Name = "dtDateFrom";
             this.dtDateFrom.Size = new System.Drawing.Size(174, 34);
             this.dtDateFrom.TabIndex = 49;
+            this.dtDateFrom.ValueChanged += new System.EventHandler(this.dtDateFrom_ValueChanged);
             // 
             // label4
             // 
@@ -153,15 +110,15 @@
             this.label2.Text = "SELECT ZONE :";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cbbSelectedData
+            // cbbSelectedZone
             // 
-            this.cbbSelectedData.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbSelectedData.FormattingEnabled = true;
-            this.cbbSelectedData.ItemHeight = 26;
-            this.cbbSelectedData.Location = new System.Drawing.Point(16, 44);
-            this.cbbSelectedData.Name = "cbbSelectedData";
-            this.cbbSelectedData.Size = new System.Drawing.Size(174, 34);
-            this.cbbSelectedData.TabIndex = 51;
+            this.cbbSelectedZone.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbSelectedZone.FormattingEnabled = true;
+            this.cbbSelectedZone.ItemHeight = 26;
+            this.cbbSelectedZone.Location = new System.Drawing.Point(16, 44);
+            this.cbbSelectedZone.Name = "cbbSelectedZone";
+            this.cbbSelectedZone.Size = new System.Drawing.Size(174, 34);
+            this.cbbSelectedZone.TabIndex = 51;
             // 
             // btnOk
             // 
@@ -195,13 +152,10 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btnExport);
             this.panel1.Controls.Add(this.btnOk);
             this.panel1.Controls.Add(this.cbbSampling);
-            this.panel1.Controls.Add(this.cbbSelectedData);
+            this.panel1.Controls.Add(this.cbbSelectedZone);
             this.panel1.Controls.Add(this.dtDateTo);
             this.panel1.Controls.Add(this.dtDateFrom);
             this.panel1.Controls.Add(this.label7);
@@ -214,45 +168,15 @@
             this.panel1.Size = new System.Drawing.Size(1391, 90);
             this.panel1.TabIndex = 53;
             // 
-            // label6
+            // cbbSampling
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1233, 40);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 53;
-            this.label6.Text = "label6";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1233, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
-            this.label5.TabIndex = 53;
-            this.label5.Text = "label5";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1233, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 53;
-            this.label3.Text = "label3";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.btnZoom);
-            this.panel2.Controls.Add(this.btnNext);
-            this.panel2.Controls.Add(this.btnPrevious);
-            this.panel2.Controls.Add(this.cartesianChart1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 90);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1391, 566);
-            this.panel2.TabIndex = 54;
+            this.cbbSampling.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbSampling.FormattingEnabled = true;
+            this.cbbSampling.ItemHeight = 26;
+            this.cbbSampling.Location = new System.Drawing.Point(590, 44);
+            this.cbbSampling.Name = "cbbSampling";
+            this.cbbSampling.Size = new System.Drawing.Size(174, 34);
+            this.cbbSampling.TabIndex = 51;
             // 
             // label7
             // 
@@ -265,15 +189,15 @@
             this.label7.Text = "SAMPLING TIME :";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // cbbSampling
+            // panel2
             // 
-            this.cbbSampling.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbSampling.FormattingEnabled = true;
-            this.cbbSampling.ItemHeight = 26;
-            this.cbbSampling.Location = new System.Drawing.Point(590, 44);
-            this.cbbSampling.Name = "cbbSampling";
-            this.cbbSampling.Size = new System.Drawing.Size(174, 34);
-            this.cbbSampling.TabIndex = 51;
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.cartesianChart1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 90);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1391, 566);
+            this.panel2.TabIndex = 54;
             // 
             // sfrmData1
             // 
@@ -287,7 +211,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Temperature Monitoring  - Data";
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -296,22 +219,16 @@
         #endregion
 
         private LiveCharts.WinForms.CartesianChart cartesianChart1;
-        private System.Windows.Forms.Button btnZoom;
-        private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.DateTimePicker dtDateTo;
         private System.Windows.Forms.DateTimePicker dtDateFrom;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbbSelectedData;
+        private System.Windows.Forms.ComboBox cbbSelectedZone;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbbSampling;
         private System.Windows.Forms.Label label7;
     }

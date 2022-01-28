@@ -24,7 +24,16 @@ namespace Smart_Temperature_Monitoring
 
         private void sfrmSetting1_Load(object sender, EventArgs e)
         {
-            initSetting();
+            try
+            {
+                initSetting();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                this.Close();
+            }
+            
 
             // Limit value
             numHi.Maximum = MaxHigh;

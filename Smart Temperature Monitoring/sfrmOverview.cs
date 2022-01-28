@@ -11,11 +11,13 @@ using System.Threading;
 using System.Windows.Forms;
 using static Smart_Temperature_Monitoring.InterfaceDB;
 using Brushes = System.Windows.Media.Brushes;
+using System.Collections.Generic;
 
 namespace Smart_Temperature_Monitoring
 {
+    
     public partial class sfrmOverview : Form
-    {
+    {        
         //  Global varriable
         public static string _selectedExport = "";
         public static string _selectedEvent = "";
@@ -47,26 +49,34 @@ namespace Smart_Temperature_Monitoring
             //  Intial
             initTempData();
 
-            //  สร้าง Thread threadUpdateTime
-            Thread threadUpdateTime = new Thread(ThreadUpdateTime);
-            threadUpdateTime.IsBackground = true;
-            threadUpdateTime.Start();
+            //Create Thread threadSamplingTime --> Update Actual temp. & Trend & Grid status
+            Thread threadUpdateTrend = new Thread(ThreadUpdateTime);
+            threadUpdateTrend.IsBackground = true;
+            threadUpdateTrend.Start();
+
+            //  Create Thread threadUpdateSetting --> Update setting
+            Thread threadUpdateSetting = new Thread(ThreadUpdateSetting);
+            threadUpdateSetting.IsBackground = true;
+            threadUpdateSetting.Start();
         }
+
 
         //  Thread Portion
         private void ThreadUpdateTime()
         {
+            _actualTemp();
+            //_get_event_all();   
 
-            while (true)
-            {
-                // Get actual data
-                _actualTemp();
-                _actual_setting();
-                //_get_event_all();   
+            //  Delay
+            Thread.Sleep(300000);            
+        }
 
-                //  Delay
-                Thread.Sleep(60000);
-            }
+        private void ThreadUpdateSetting()
+        {
+            _actual_setting();
+            
+            //  Delay
+            Thread.Sleep(1000);        
         }
 
         //  Display function
@@ -137,27 +147,44 @@ namespace Smart_Temperature_Monitoring
                 chTemp3.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_hi"])));
                 chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
 
-                // plot gv status
-                actualGvRow += 1;
+                // plot gv status                
                 gvData1.ClearSelection();
                 gvData2.ClearSelection();
                 gvData3.ClearSelection();
+
                 if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
                 {
                     gvData1.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
                     gvData1.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
                 }
+                else
+                {
+                    gvData1.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(128, 255, 128);
+                    gvData1.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                }
+
                 if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "NG")
                 {
                     gvData2.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
                     gvData2.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
                 }
+                else
+                {
+                    gvData2.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(128, 255, 128);
+                    gvData2.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                }
+
                 if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "NG")
                 {
                     gvData3.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(255, 128, 128);
                     gvData3.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(255, 128, 128);
                 }
-
+                else
+                {
+                    gvData3.Rows[0].Cells[actualGvRow].Style.BackColor = Color.FromArgb(128, 255, 128);
+                    gvData3.Rows[0].Cells[actualGvRow].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                }
+                actualGvRow += 1;
             }
         }
 
@@ -235,6 +262,7 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp1.Series.Add(new LineSeries
                 {
+                    Name = "Actual",
                     Values = values1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -243,6 +271,7 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp1.Series.Add(new LineSeries
                 {
+                    Name = "High",
                     Values = hi1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -251,6 +280,7 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp1.Series.Add(new LineSeries
                 {
+                    Name = "Low",
                     Values = lo1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -309,13 +339,17 @@ namespace Smart_Temperature_Monitoring
                     //Stroke = Brushes.LightSalmon
                 });
 
+
+                IList<string> labelX = new List<string>();
+                for (int i = 0; i <= 287; i++)
+                    labelX.Add(System.DateTime.MinValue.AddMinutes(i*5).ToString("HH:mm"));
+
                 chTemp1.AxisX.Add(new Axis
                 {
-                    MinValue = 00,
+                    MinValue = 0,
                     MaxValue = 287,
-                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
-                    //LabelFormatter = value => 
-                    //Labels = new[] { "00:00", "01:00", "02:00", "03:00", "04:00" }
+                    Labels = labelX
+                    //LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
                 });
 
                 chTemp1.AxisY.Add(new Axis
@@ -328,7 +362,8 @@ namespace Smart_Temperature_Monitoring
                 {
                     MinValue = 0,
                     MaxValue = 287,
-                    LabelFormatter = val => new System.DateTime((long)val).ToString("dd MMM")
+                    Labels = labelX,
+                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
                 });
 
                 chTemp2.AxisY.Add(new Axis
@@ -340,7 +375,9 @@ namespace Smart_Temperature_Monitoring
                 chTemp3.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 287
+                    MaxValue = 287,
+                    Labels = labelX,
+                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
                 });
 
                 chTemp3.AxisY.Add(new Axis
@@ -374,6 +411,9 @@ namespace Smart_Temperature_Monitoring
                 gvData2.Rows.Clear();
                 gvData3.Rows.Clear();
 
+                //gvData1.ClearSelection();
+                //gvData2.ClearSelection();
+                //gvData3.ClearSelection();
 
                 //Add array to DataGridView
                 gvData1.Rows.Add(status1);
@@ -381,14 +421,14 @@ namespace Smart_Temperature_Monitoring
                 gvData3.Rows.Add(status3);
 
                 //Manage DataGridView
-                gvData1.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
-                gvData1.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+                //gvData1.Rows[0].DefaultCellStyle.BackColor = Color.LightGray;
+                //gvData1.Rows[0].DefaultCellStyle.ForeColor = Color.LightGray;
 
-                gvData2.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
-                gvData2.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+                //gvData2.Rows[0].DefaultCellStyle.BackColor = Color.LightGray;
+                //gvData2.Rows[0].DefaultCellStyle.ForeColor = Color.LightGray;
 
-                gvData3.Rows[0].DefaultCellStyle.BackColor = Color.FromArgb(128, 255, 128);
-                gvData3.Rows[0].DefaultCellStyle.ForeColor = Color.FromArgb(128, 255, 128);
+                //gvData3.Rows[0].DefaultCellStyle.BackColor = Color.LightGray;
+                //gvData3.Rows[0].DefaultCellStyle.ForeColor = Color.LightGray;
                 for (int i = 0; i < _pGet_Temp_data.Rows.Count; i++)
                 {
                     if (status1[i] == "NG")
@@ -396,17 +436,32 @@ namespace Smart_Temperature_Monitoring
                         gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
                     }
+                    else 
+                    {
+                        gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    }
 
                     if (status2[i] == "NG")
                     {
                         gvData2.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
                     }
+                    else
+                    {
+                        gvData2.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    }
 
                     if (status3[i] == "NG")
                     {
                         gvData3.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData3.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else
+                    {
+                        gvData3.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData3.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
                     }
 
                     actualGvRow = _pGet_Temp_data.Rows.Count;
