@@ -31,7 +31,7 @@ namespace Smart_Temperature_Monitoring
             list.Add(new sampling_time() { No = "3", Name = "30 Min" });
             list.Add(new sampling_time() { No = "4", Name = "1 Hour" });
 
-            //Display member and value for combobox
+            //Display member and value for combobox Sampling Time
             cbbSampling.DataSource = list;
             cbbSampling.ValueMember = "No";
             cbbSampling.DisplayMember = "Name";
@@ -53,6 +53,8 @@ namespace Smart_Temperature_Monitoring
 
                 cartesianChart1.Series.Add(new LineSeries
                 {
+                    Name = "TempValue",
+                    Title = "Temp Value",
                     Values = values1
                 });
 
@@ -105,7 +107,6 @@ namespace Smart_Temperature_Monitoring
                 sw.Write(sw.NewLine);
 
                 // Now write all the rows.
-
                 foreach (DataRow dr in dt.Rows)
                 {
                     for (int i = 0; i < iColCount; i++)
@@ -119,7 +120,6 @@ namespace Smart_Temperature_Monitoring
                             sw.Write(",");
                         }
                     }
-
                     sw.Write(sw.NewLine);
                 }
                 sw.Close();
@@ -130,7 +130,7 @@ namespace Smart_Temperature_Monitoring
             }
         }
 
-
+        // DB interface
         private static DataTable pGet_Temp_Range(int zone_id, DateTime start_date, DateTime end_date, int sampling_no)
         {
             DataTable dataTable = new DataTable();
@@ -205,6 +205,8 @@ namespace Smart_Temperature_Monitoring
 
                     cartesianChart1.Series.Add(new LineSeries
                     {
+                        Name = "TempValue",
+                        Title = "Temp Value",
                         Values = values1,
                         Fill = Brushes.Transparent,
                         PointGeometrySize = 0,

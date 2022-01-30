@@ -22,13 +22,10 @@ namespace Smart_Temperature_Monitoring
         public static string _selectedExport = "";
         public static string _selectedEvent = "";
         public static int _selectedData = 0;
-        public static int _SettingId = 0;
-        public static int _SettingZoneId = 0;
-        public static int _Setting1 = 0;
-        public static int _Setting2 = 0;
-        public static int _Setting3 = 0;
-        public static bool _newSetting = false;
+        public static int _SettingZoneId = 0;  
         public static int _EventZoneId = 0;
+
+        
 
         //  Local varriable
         private static DataTable _pGet_Temp_actual = new DataTable();
@@ -38,6 +35,7 @@ namespace Smart_Temperature_Monitoring
 
         private static int actualTempID = 0;
         private static int actualGvRow = 0;
+        private static int _EventId = 0;
 
         //  Form load
         public sfrmOverview()
@@ -46,9 +44,9 @@ namespace Smart_Temperature_Monitoring
         }
         private void sfrmOverview_Load(object sender, EventArgs e)
         {
-            //  Intial
-            initTempData();
-
+            //  Thread GUI-link Config
+            //System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
+                       
             //Create Thread threadSamplingTime --> Update Actual temp. & Trend & Grid status
             Thread threadUpdateTrend = new Thread(ThreadUpdateTime);
             threadUpdateTrend.IsBackground = true;
@@ -58,25 +56,49 @@ namespace Smart_Temperature_Monitoring
             Thread threadUpdateSetting = new Thread(ThreadUpdateSetting);
             threadUpdateSetting.IsBackground = true;
             threadUpdateSetting.Start();
+
+            //  Create Thread threadUpdateEvent --> Update Event all
+            Thread threadUpdateEvent = new Thread(ThreadUpdateEvent);
+            threadUpdateEvent.IsBackground = true;
+            threadUpdateEvent.Start();
+
+            //  Intial
+            initTempData();
         }
 
 
         //  Thread Portion
         private void ThreadUpdateTime()
-        {
-            _actualTemp();
-            //_get_event_all();   
+        {    
+            while (true)
+            {
+                _actualTemp();                   
 
-            //  Delay
-            Thread.Sleep(300000);            
+                //  Delay
+                Thread.Sleep(60000);
+            }
         }
 
         private void ThreadUpdateSetting()
+        {   
+            while (true)
+            {
+                _actual_setting();
+                //_get_event_all();
+                //  Delay
+                Thread.Sleep(5000);       
+                
+            }
+        }
+
+        private void ThreadUpdateEvent()
         {
-            _actual_setting();
-            
-            //  Delay
-            Thread.Sleep(1000);        
+            while (true)
+            {
+                _get_event_all();
+                //  Delay
+                Thread.Sleep(5000);
+            }
         }
 
         //  Display function
@@ -91,14 +113,8 @@ namespace Smart_Temperature_Monitoring
                 lbValue2.Text = _pGet_Temp_actual.Rows[0]["temp2"].ToString();
                 lbValue3.Text = _pGet_Temp_actual.Rows[0]["temp3"].ToString();
 
-                // Keep actual setting id
-                _Setting1 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t1"]);
-                _Setting2 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t2"]);
-                _Setting3 = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ct_setting_t3"]);
-
                 // Keep actual ID
                 actualTempID = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ID"]);
-
 
                 // change background coler 
                 if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "OK")
@@ -194,17 +210,17 @@ namespace Smart_Temperature_Monitoring
             _pGet_setting_actual = pGet_setting_actual();
             if (_pGet_setting_actual != null)
             {
-                lbZone1.Text = _pGet_setting_actual.Rows[0]["t1_name"].ToString();
-                lbLow1.Text = _pGet_setting_actual.Rows[0]["temp1_lo"].ToString();
-                lbHigh1.Text = _pGet_setting_actual.Rows[0]["temp1_hi"].ToString();
+                lbZone1.Text = _pGet_setting_actual.Rows[0]["zone_name"].ToString();
+                lbLow1.Text = _pGet_setting_actual.Rows[0]["limit_low"].ToString();
+                lbHigh1.Text = _pGet_setting_actual.Rows[0]["limit_hi"].ToString();
 
-                lbZone2.Text = _pGet_setting_actual.Rows[0]["t2_name"].ToString();
-                lbLow2.Text = _pGet_setting_actual.Rows[0]["temp2_lo"].ToString();
-                lbHigh2.Text = _pGet_setting_actual.Rows[0]["temp2_hi"].ToString();
+                lbZone2.Text = _pGet_setting_actual.Rows[1]["zone_name"].ToString();
+                lbLow2.Text = _pGet_setting_actual.Rows[1]["limit_low"].ToString();
+                lbHigh2.Text = _pGet_setting_actual.Rows[1]["limit_hi"].ToString();
 
-                lbZone3.Text = _pGet_setting_actual.Rows[0]["t3_name"].ToString();
-                lbLow3.Text = _pGet_setting_actual.Rows[0]["temp3_lo"].ToString();
-                lbHigh3.Text = _pGet_setting_actual.Rows[0]["temp3_hi"].ToString();
+                lbZone3.Text = _pGet_setting_actual.Rows[2]["zone_name"].ToString();
+                lbLow3.Text = _pGet_setting_actual.Rows[2]["limit_low"].ToString();
+                lbHigh3.Text = _pGet_setting_actual.Rows[2]["limit_hi"].ToString();
             }
         }
 
@@ -218,9 +234,13 @@ namespace Smart_Temperature_Monitoring
                 //gvEventAll.Columns.Clear();
                 //gvEventAll.Rows.Clear();
                 //gvEventAll.DataSource = null;
-                gvEventAll.ClearSelection();
+                //gvEventAll.ClearSelection();
 
-                gvEventAll.DataSource = _pGet_event_all;
+                if (_EventId != Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]))
+                {
+                    gvEventAll.DataSource = _pGet_event_all;
+                    _EventId = Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]);
+                }                
             }
         }
 
@@ -263,6 +283,7 @@ namespace Smart_Temperature_Monitoring
                 chTemp1.Series.Add(new LineSeries
                 {
                     Name = "Actual",
+                    Title = "Actual",
                     Values = values1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -271,26 +292,31 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp1.Series.Add(new LineSeries
                 {
-                    Name = "High",
+                    Name = "LimitHigh",
+                    Title = "Limit High",
                     Values = hi1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
                 });
 
                 chTemp1.Series.Add(new LineSeries
                 {
-                    Name = "Low",
+                    Name = "LimitLow",
+                    Title = "Limit Low",
                     Values = lo1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
-                    //Stroke = Brushes.LightSalmon
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
 
                 });
 
                 chTemp2.Series.Add(new LineSeries
                 {
+                    Name = "Actual",
+                    Title = "Actual",
                     Values = values2,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -299,23 +325,30 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp2.Series.Add(new LineSeries
                 {
+                    Name = "LimitHigh",
+                    Title = "Limit High",
                     Values = hi2,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
                 });
 
                 chTemp2.Series.Add(new LineSeries
                 {
+                    Name = "LimitLow",
+                    Title = "Limit Low",
                     Values = lo2,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
-                    //Stroke = Brushes.LightSalmon
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
                 });
 
                 chTemp3.Series.Add(new LineSeries
                 {
+                    Name = "Actual",
+                    Title = "Actual",
                     Values = values3,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
@@ -324,19 +357,24 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp3.Series.Add(new LineSeries
                 {
+                    Name = "LimitHigh",
+                    Title = "Limit High",
                     Values = hi3,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
                 });
 
                 chTemp3.Series.Add(new LineSeries
                 {
+                    Name = "LimitLow",
+                    Title = "Limit Low",
                     Values = lo3,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    StrokeThickness = 2
-                    //Stroke = Brushes.LightSalmon
+                    Stroke = Brushes.Salmon,
+                    StrokeThickness = 1
                 });
 
 
@@ -349,7 +387,6 @@ namespace Smart_Temperature_Monitoring
                     MinValue = 0,
                     MaxValue = 287,
                     Labels = labelX
-                    //LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
                 });
 
                 chTemp1.AxisY.Add(new Axis
@@ -468,14 +505,10 @@ namespace Smart_Temperature_Monitoring
                 }
 
                 // Keep setting id
-                if (_pGet_Temp_data.Rows.Count > 0)
-                {
-                    _Setting1 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t1"]);
-                    _Setting2 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t2"]);
-                    _Setting3 = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ct_setting_t3"]);
-
-                    actualTempID = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ID"]);
-                }
+                //if (_pGet_Temp_data.Rows.Count > 0)
+                //{
+                //    actualTempID = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ID"]);
+                //}
 
             }
 
@@ -573,9 +606,41 @@ namespace Smart_Temperature_Monitoring
         }
 
         //  Button event
-        private void btnExport1_Click(object sender, EventArgs e)
+        private void btnEven1_Click(object sender, EventArgs e)
         {
-            _selectedExport = "A";
+            _EventZoneId = 1;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
+        }
+
+        private void btnEven2_Click(object sender, EventArgs e)
+        {
+            _EventZoneId = 2;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
+        }
+
+        private void btnEven3_Click(object sender, EventArgs e)
+        {
+            _EventZoneId = 3;
+            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
+            sfrmEvent1.Show();
+        }
+
+        private void btnReport1_Click(object sender, EventArgs e)
+        {
+            sfrmReport1 sfrmExport1 = new sfrmReport1();
+            sfrmExport1.Show();
+        }
+
+        private void btnReport2_MouseClick(object sender, MouseEventArgs e)
+        {
+            sfrmReport1 sfrmExport1 = new sfrmReport1();
+            sfrmExport1.Show();
+        }
+
+        private void btnReport3_MouseClick(object sender, MouseEventArgs e)
+        {
             sfrmReport1 sfrmExport1 = new sfrmReport1();
             sfrmExport1.Show();
         }
@@ -597,28 +662,21 @@ namespace Smart_Temperature_Monitoring
             sfrmData1 sfrmData1 = new sfrmData1();
             sfrmData1.Show();
         }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            //actualTemp();
-            //limitTemp();
-        }
+        
         private void btnSetting1_Click(object sender, EventArgs e)
         {
-            _SettingId = _Setting1;
             _SettingZoneId = 1;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
         }
         private void btnSetting2_Click(object sender, EventArgs e)
         {
-            _SettingId = _Setting2;
             _SettingZoneId = 2;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
         }
         private void btnSetting3_Click(object sender, EventArgs e)
         {
-            _SettingId = _Setting3;
             _SettingZoneId = 3;
             sfrmSetting1 sfrmSetting1 = new sfrmSetting1();
             sfrmSetting1.Show();
@@ -691,33 +749,7 @@ namespace Smart_Temperature_Monitoring
                 "{1} has value back to lenght at {2}.", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                 , zone, label.Text);
             LineNotifyMsg("hj1TGTJOwYq8L78D2fYbhPKQhOAsgaG1KfJ1QRLa3Tb", message);
-        }
-
-        //  Label change
-        private void lbValue_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnEven1_Click(object sender, EventArgs e)
-        {
-            _EventZoneId = 1;
-            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
-            sfrmEvent1.Show();
-        }
-
-        private void btnEven2_Click(object sender, EventArgs e)
-        {
-            _EventZoneId = 2;
-            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
-            sfrmEvent1.Show();
-        }
-
-        private void btnEven3_Click(object sender, EventArgs e)
-        {
-            _EventZoneId = 3;
-            sfrmEvent1 sfrmEvent1 = new sfrmEvent1();
-            sfrmEvent1.Show();
-        }
+        }       
+        
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sfrmOverview));
             this.panelMain2 = new System.Windows.Forms.Panel();
             this.lbZone2 = new System.Windows.Forms.Label();
@@ -336,8 +335,7 @@
             this.btnSetting3 = new System.Windows.Forms.Button();
             this.btnData3 = new System.Windows.Forms.Button();
             this.btnEven3 = new System.Windows.Forms.Button();
-            this.btnExport3 = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnReport3 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.gvData1 = new System.Windows.Forms.DataGridView();
@@ -637,7 +635,7 @@
             this.btnSetting1 = new System.Windows.Forms.Button();
             this.btnData1 = new System.Windows.Forms.Button();
             this.btnEven1 = new System.Windows.Forms.Button();
-            this.btnExport1 = new System.Windows.Forms.Button();
+            this.btnReport1 = new System.Windows.Forms.Button();
             this.panelMain1 = new System.Windows.Forms.Panel();
             this.lbZone1 = new System.Windows.Forms.Label();
             this.lbHigh1 = new System.Windows.Forms.Label();
@@ -939,7 +937,7 @@
             this.btnSetting2 = new System.Windows.Forms.Button();
             this.btnData2 = new System.Windows.Forms.Button();
             this.btnEven2 = new System.Windows.Forms.Button();
-            this.btnExport2 = new System.Windows.Forms.Button();
+            this.btnReport2 = new System.Windows.Forms.Button();
             this.gvEventAll = new System.Windows.Forms.DataGridView();
             this.panelMain2.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -3152,7 +3150,7 @@
             this.panel8.Controls.Add(this.btnSetting3);
             this.panel8.Controls.Add(this.btnData3);
             this.panel8.Controls.Add(this.btnEven3);
-            this.panel8.Controls.Add(this.btnExport3);
+            this.panel8.Controls.Add(this.btnReport3);
             this.panel8.Location = new System.Drawing.Point(1732, 9);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(156, 217);
@@ -3215,28 +3213,24 @@
             this.btnEven3.UseVisualStyleBackColor = false;
             this.btnEven3.Click += new System.EventHandler(this.btnEven3_Click);
             // 
-            // btnExport3
+            // btnReport3
             // 
-            this.btnExport3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
-            this.btnExport3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExport3.FlatAppearance.BorderSize = 0;
-            this.btnExport3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExport3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExport3.ForeColor = System.Drawing.Color.White;
-            this.btnExport3.Image = ((System.Drawing.Image)(resources.GetObject("btnExport3.Image")));
-            this.btnExport3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport3.Location = new System.Drawing.Point(0, 0);
-            this.btnExport3.Name = "btnExport3";
-            this.btnExport3.Size = new System.Drawing.Size(156, 54);
-            this.btnExport3.TabIndex = 0;
-            this.btnExport3.Text = "          REPORT";
-            this.btnExport3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport3.UseVisualStyleBackColor = false;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.btnReport3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
+            this.btnReport3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReport3.FlatAppearance.BorderSize = 0;
+            this.btnReport3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReport3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.btnReport3.ForeColor = System.Drawing.Color.White;
+            this.btnReport3.Image = ((System.Drawing.Image)(resources.GetObject("btnReport3.Image")));
+            this.btnReport3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport3.Location = new System.Drawing.Point(0, 0);
+            this.btnReport3.Name = "btnReport3";
+            this.btnReport3.Size = new System.Drawing.Size(156, 54);
+            this.btnReport3.TabIndex = 0;
+            this.btnReport3.Text = "          REPORT";
+            this.btnReport3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport3.UseVisualStyleBackColor = false;
+            this.btnReport3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnReport3_MouseClick);
             // 
             // panel2
             // 
@@ -5346,7 +5340,7 @@
             this.panel3.Controls.Add(this.btnSetting1);
             this.panel3.Controls.Add(this.btnData1);
             this.panel3.Controls.Add(this.btnEven1);
-            this.panel3.Controls.Add(this.btnExport1);
+            this.panel3.Controls.Add(this.btnReport1);
             this.panel3.Location = new System.Drawing.Point(1733, 8);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(156, 217);
@@ -5409,24 +5403,24 @@
             this.btnEven1.UseVisualStyleBackColor = false;
             this.btnEven1.Click += new System.EventHandler(this.btnEven1_Click);
             // 
-            // btnExport1
+            // btnReport1
             // 
-            this.btnExport1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
-            this.btnExport1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExport1.FlatAppearance.BorderSize = 0;
-            this.btnExport1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExport1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExport1.ForeColor = System.Drawing.Color.White;
-            this.btnExport1.Image = ((System.Drawing.Image)(resources.GetObject("btnExport1.Image")));
-            this.btnExport1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport1.Location = new System.Drawing.Point(0, 0);
-            this.btnExport1.Name = "btnExport1";
-            this.btnExport1.Size = new System.Drawing.Size(156, 54);
-            this.btnExport1.TabIndex = 0;
-            this.btnExport1.Text = "          REPORT";
-            this.btnExport1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport1.UseVisualStyleBackColor = false;
-            this.btnExport1.Click += new System.EventHandler(this.btnExport1_Click);
+            this.btnReport1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
+            this.btnReport1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReport1.FlatAppearance.BorderSize = 0;
+            this.btnReport1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReport1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.btnReport1.ForeColor = System.Drawing.Color.White;
+            this.btnReport1.Image = ((System.Drawing.Image)(resources.GetObject("btnReport1.Image")));
+            this.btnReport1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport1.Location = new System.Drawing.Point(0, 0);
+            this.btnReport1.Name = "btnReport1";
+            this.btnReport1.Size = new System.Drawing.Size(156, 54);
+            this.btnReport1.TabIndex = 0;
+            this.btnReport1.Text = "          REPORT";
+            this.btnReport1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport1.UseVisualStyleBackColor = false;
+            this.btnReport1.Click += new System.EventHandler(this.btnReport1_Click);
             // 
             // panelMain1
             // 
@@ -7565,7 +7559,7 @@
             this.panel5.Controls.Add(this.btnSetting2);
             this.panel5.Controls.Add(this.btnData2);
             this.panel5.Controls.Add(this.btnEven2);
-            this.panel5.Controls.Add(this.btnExport2);
+            this.panel5.Controls.Add(this.btnReport2);
             this.panel5.Location = new System.Drawing.Point(1732, 9);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(156, 217);
@@ -7628,23 +7622,24 @@
             this.btnEven2.UseVisualStyleBackColor = false;
             this.btnEven2.Click += new System.EventHandler(this.btnEven2_Click);
             // 
-            // btnExport2
+            // btnReport2
             // 
-            this.btnExport2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
-            this.btnExport2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExport2.FlatAppearance.BorderSize = 0;
-            this.btnExport2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExport2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExport2.ForeColor = System.Drawing.Color.White;
-            this.btnExport2.Image = ((System.Drawing.Image)(resources.GetObject("btnExport2.Image")));
-            this.btnExport2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport2.Location = new System.Drawing.Point(0, 0);
-            this.btnExport2.Name = "btnExport2";
-            this.btnExport2.Size = new System.Drawing.Size(156, 54);
-            this.btnExport2.TabIndex = 0;
-            this.btnExport2.Text = "          REPORT";
-            this.btnExport2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExport2.UseVisualStyleBackColor = false;
+            this.btnReport2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(114)))), ((int)(((byte)(196)))));
+            this.btnReport2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReport2.FlatAppearance.BorderSize = 0;
+            this.btnReport2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReport2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.btnReport2.ForeColor = System.Drawing.Color.White;
+            this.btnReport2.Image = ((System.Drawing.Image)(resources.GetObject("btnReport2.Image")));
+            this.btnReport2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport2.Location = new System.Drawing.Point(0, 0);
+            this.btnReport2.Name = "btnReport2";
+            this.btnReport2.Size = new System.Drawing.Size(156, 54);
+            this.btnReport2.TabIndex = 0;
+            this.btnReport2.Text = "          REPORT";
+            this.btnReport2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnReport2.UseVisualStyleBackColor = false;
+            this.btnReport2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnReport2_MouseClick);
             // 
             // gvEventAll
             // 
@@ -7702,13 +7697,12 @@
         private System.Windows.Forms.Panel panelMain2;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panelMain3;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnSetting1;
         private System.Windows.Forms.Button btnData1;
         private System.Windows.Forms.Button btnEven1;
-        private System.Windows.Forms.Button btnExport1;
+        private System.Windows.Forms.Button btnReport1;
         private System.Windows.Forms.Panel panelMain1;
         private LiveCharts.WinForms.CartesianChart chTemp1;
         private System.Windows.Forms.Panel panel4;
@@ -7732,7 +7726,7 @@
         private System.Windows.Forms.Button btnSetting3;
         private System.Windows.Forms.Button btnData3;
         private System.Windows.Forms.Button btnEven3;
-        private System.Windows.Forms.Button btnExport3;
+        private System.Windows.Forms.Button btnReport3;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel12;
         private LiveCharts.WinForms.CartesianChart chTemp3;
@@ -8028,7 +8022,7 @@
         private System.Windows.Forms.Button btnSetting2;
         private System.Windows.Forms.Button btnData2;
         private System.Windows.Forms.Button btnEven2;
-        private System.Windows.Forms.Button btnExport2;
+        private System.Windows.Forms.Button btnReport2;
         private System.Windows.Forms.Panel panel11;
         private LiveCharts.WinForms.CartesianChart chTemp2;
         private System.Windows.Forms.DataGridView gvData3;

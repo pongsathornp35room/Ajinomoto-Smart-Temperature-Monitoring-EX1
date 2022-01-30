@@ -26,15 +26,15 @@ namespace Smart_Temperature_Monitoring
             System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
 
             //  สร้าง Thread threadUpdateTime
-            Thread threadSamplingTime = new Thread(ThreadSamplingTime);
-            threadSamplingTime.IsBackground = true;
-            threadSamplingTime.Start();            
+            Thread threadUpdateTime = new Thread(ThreadUpdateTime);
+            threadUpdateTime.IsBackground = true;
+            threadUpdateTime.Start();            
 
             //  Open main child form
             openChildForm(new sfrmOverview());
         }
         //  Thread Portion
-        private void ThreadSamplingTime()
+        private void ThreadUpdateTime()
         {
 
             while (true)

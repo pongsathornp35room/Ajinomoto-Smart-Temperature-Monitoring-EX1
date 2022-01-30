@@ -13,7 +13,6 @@ namespace Smart_Temperature_Monitoring
         public sfrmEvent1()
         {
             InitializeComponent();
-
         }
         private void sfrmEvent1_Load(object sender, EventArgs e)
         {

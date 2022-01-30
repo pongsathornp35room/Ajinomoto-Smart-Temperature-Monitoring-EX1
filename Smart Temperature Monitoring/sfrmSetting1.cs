@@ -32,8 +32,7 @@ namespace Smart_Temperature_Monitoring
             {
                 MessageBox.Show(ex.Message);
                 this.Close();
-            }
-            
+            }            
 
             // Limit value
             numHi.Maximum = MaxHigh;
@@ -46,20 +45,18 @@ namespace Smart_Temperature_Monitoring
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
         {
             _pGet_setting = new DataTable();
-            _pGet_setting = pGet_setting(sfrmOverview._SettingId);
+            _pGet_setting = pGet_setting(sfrmOverview._SettingZoneId);
             if (_pGet_setting != null)
             {
                 txtSetting.Text = "SYSTEM SETTING " + _pGet_setting.Rows[0]["zone_name"].ToString();
                 txtZone.Text = _pGet_setting.Rows[0]["zone_name"].ToString();
                 numLo.Value = Convert.ToDecimal(_pGet_setting.Rows[0]["limit_low"]);
                 numHi.Value = Convert.ToDecimal(_pGet_setting.Rows[0]["limit_hi"]);
-
-                //gvLimit.DataSource = _pGet_setting;
             }
         }
 
         //  SQL interface section
-        private static DataTable pGet_setting(int id)
+        private static DataTable pGet_setting(int ZoneId)
         {
             DataTable dataTable = new DataTable();
             DataSet ds = new DataSet();
@@ -67,7 +64,7 @@ namespace Smart_Temperature_Monitoring
             {
                 //  อ่านค่าจาก Store pGet_actual_value
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                param.AddWithValue("@setting_id", SqlDbType.Int).Value = id;
+                param.AddWithValue("@zone_id", SqlDbType.Int).Value = ZoneId;
                 ds = new DBClass().SqlExcSto("pGet_setting", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
@@ -82,7 +79,7 @@ namespace Smart_Temperature_Monitoring
             return dataTable;
         }
 
-        private static DataTable pUpdate_setting(int id, int zone_id, string zone_name, double temp_hi, double temp_lo)
+        private static DataTable pUpdate_setting(int zone_id, string zone_name, double temp_hi, double temp_lo)
         {
             DataTable dataTable = new DataTable();
             DataSet ds = new DataSet();
@@ -90,7 +87,6 @@ namespace Smart_Temperature_Monitoring
             {
                 //  อ่านค่าจาก Store pGet_actual_value
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                param.AddWithValue("@setting_id", SqlDbType.Int).Value = id;
                 param.AddWithValue("@zone_id", SqlDbType.Int).Value = zone_id;
                 param.AddWithValue("@zone_name", SqlDbType.NVarChar).Value = zone_name;
                 param.AddWithValue("@temp_hi", SqlDbType.Decimal).Value = temp_hi;
@@ -134,13 +130,12 @@ namespace Smart_Temperature_Monitoring
                     return;
                 }
 
-                //Update table              
-                //pUpdate_setting(sfrmOverview._SettingId, txtZone.Text, Convert.ToDouble(txtHigh.Text), Convert.ToDouble(txtLow.Text));
-                pUpdate_setting(sfrmOverview._SettingId, sfrmOverview._SettingZoneId, txtZone.Text, Convert.ToDouble(numHi.Value), Convert.ToDouble(numLo.Value));
+                //Update setting table            
+                pUpdate_setting(sfrmOverview._SettingZoneId, txtZone.Text, Convert.ToDouble(numHi.Value), Convert.ToDouble(numLo.Value));
 
                 //Get new setting
-                sfrmOverview f = new sfrmOverview();
-                f._actual_setting();
+                //sfrmOverview f = new sfrmOverview();
+                //f._actual_setting();
 
                 MessageBox.Show("แก้ไขข้อมูลเรียบร้อยแล้ว", "ข้อความจากระบบ");
                 this.Hide();
