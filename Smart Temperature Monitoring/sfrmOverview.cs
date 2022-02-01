@@ -1,6 +1,6 @@
 ﻿using LiveCharts; //Core of the library
 using LiveCharts.Wpf; //The WPF controls
-using Microsoft.Data.SqlClient;
+using System.Data.SqlClient;
 using System;
 using System.Data;
 using System.Drawing;
