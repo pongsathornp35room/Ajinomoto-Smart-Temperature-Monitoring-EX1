@@ -39,19 +39,28 @@ namespace Smart_Temperature_Monitoring
 
             while (true)
             {
-                DateTime dt = DateTime.Now;
-                BtnCurrentTime.Text = dt.ToString("HH:mm:ss");
-                LbDate.Text = dt.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+                try
+                {
+                    DateTime dt = DateTime.Now;
+                    BtnCurrentTime.Text = dt.ToString("HH:mm:ss");
+                    LbDate.Text = dt.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
 
-                //  Blink LbTimeBlink
-                if (LbTimeBlink.BackColor == _blinkBgTimeColor[0])
-                    LbTimeBlink.BackColor = _blinkBgTimeColor[1];
+                    //  Blink LbTimeBlink
+                    if (LbTimeBlink.BackColor == _blinkBgTimeColor[0])
+                        LbTimeBlink.BackColor = _blinkBgTimeColor[1];
 
-                else
-                    LbTimeBlink.BackColor = _blinkBgTimeColor[0];
-
-                //  Delay
-                Thread.Sleep(1000);
+                    else
+                        LbTimeBlink.BackColor = _blinkBgTimeColor[0];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ThreadUpdateTime: " + ex.Message);
+                }
+                finally
+                {
+                    //  Delay
+                    Thread.Sleep(1000);
+                }
             }
         }        
 

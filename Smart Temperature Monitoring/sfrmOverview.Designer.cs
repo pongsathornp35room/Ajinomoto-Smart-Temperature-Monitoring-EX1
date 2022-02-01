@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sfrmOverview));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelMain2 = new System.Windows.Forms.Panel();
             this.lbZone2 = new System.Windows.Forms.Label();
             this.lbHigh2 = new System.Windows.Forms.Label();
@@ -939,6 +940,10 @@
             this.btnEven2 = new System.Windows.Forms.Button();
             this.btnReport2 = new System.Windows.Forms.Button();
             this.gvEventAll = new System.Windows.Forms.DataGridView();
+            this.Date_Time = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelMain2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -7645,19 +7650,72 @@
             // 
             this.gvEventAll.AllowUserToAddRows = false;
             this.gvEventAll.AllowUserToDeleteRows = false;
+            this.gvEventAll.AllowUserToResizeColumns = false;
+            this.gvEventAll.AllowUserToResizeRows = false;
             this.gvEventAll.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.gvEventAll.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.gvEventAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gvEventAll.BackgroundColor = System.Drawing.Color.White;
+            this.gvEventAll.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gvEventAll.CausesValidation = false;
+            this.gvEventAll.ColumnHeadersHeight = 30;
+            this.gvEventAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.gvEventAll.ColumnHeadersVisible = false;
+            this.gvEventAll.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Date_Time,
+            this.Zone,
+            this.Event,
+            this.Status});
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvEventAll.DefaultCellStyle = dataGridViewCellStyle1;
+            this.gvEventAll.Enabled = false;
             this.gvEventAll.Location = new System.Drawing.Point(9, 732);
+            this.gvEventAll.MultiSelect = false;
             this.gvEventAll.Name = "gvEventAll";
             this.gvEventAll.ReadOnly = true;
             this.gvEventAll.RowHeadersVisible = false;
+            this.gvEventAll.RowHeadersWidth = 42;
+            this.gvEventAll.RowTemplate.Height = 30;
+            this.gvEventAll.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gvEventAll.ShowCellErrors = false;
             this.gvEventAll.ShowCellToolTips = false;
             this.gvEventAll.ShowEditingIcon = false;
             this.gvEventAll.ShowRowErrors = false;
             this.gvEventAll.Size = new System.Drawing.Size(1899, 86);
             this.gvEventAll.TabIndex = 5;
+            // 
+            // Date_Time
+            // 
+            this.Date_Time.FillWeight = 81.21828F;
+            this.Date_Time.HeaderText = "Date_Time";
+            this.Date_Time.Name = "Date_Time";
+            this.Date_Time.ReadOnly = true;
+            // 
+            // Zone
+            // 
+            this.Zone.FillWeight = 79.31783F;
+            this.Zone.HeaderText = "Zone";
+            this.Zone.Name = "Zone";
+            this.Zone.ReadOnly = true;
+            // 
+            // Event
+            // 
+            this.Event.FillWeight = 119.732F;
+            this.Event.HeaderText = "Event";
+            this.Event.Name = "Event";
+            this.Event.ReadOnly = true;
+            // 
+            // Status
+            // 
+            this.Status.FillWeight = 119.732F;
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
             // sfrmOverview
             // 
@@ -8604,5 +8662,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn287;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn288;
         private System.Windows.Forms.DataGridView gvEventAll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date_Time;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Event;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
     }
 }

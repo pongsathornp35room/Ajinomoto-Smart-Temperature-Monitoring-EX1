@@ -19,13 +19,9 @@ namespace Smart_Temperature_Monitoring
     public partial class sfrmOverview : Form
     {        
         //  Global varriable
-        public static string _selectedExport = "";
-        public static string _selectedEvent = "";
         public static int _selectedData = 0;
         public static int _SettingZoneId = 0;  
-        public static int _EventZoneId = 0;
-
-        
+        public static int _EventZoneId = 0;        
 
         //  Local varriable
         private static DataTable _pGet_Temp_actual = new DataTable();
@@ -46,7 +42,17 @@ namespace Smart_Temperature_Monitoring
         {
             //  Thread GUI-link Config
             //System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;
-                       
+
+            //  Intial
+            initTempData();
+
+            // clear selection on status           
+            gvData1.ClearSelection();
+            gvData2.ClearSelection();
+            gvData3.ClearSelection();
+            
+
+
             //Create Thread threadSamplingTime --> Update Actual temp. & Trend & Grid status
             Thread threadUpdateTrend = new Thread(ThreadUpdateTime);
             threadUpdateTrend.IsBackground = true;
@@ -60,44 +66,68 @@ namespace Smart_Temperature_Monitoring
             //  Create Thread threadUpdateEvent --> Update Event all
             Thread threadUpdateEvent = new Thread(ThreadUpdateEvent);
             threadUpdateEvent.IsBackground = true;
-            threadUpdateEvent.Start();
-
-            //  Intial
-            initTempData();
+            threadUpdateEvent.Start();            
         }
 
 
         //  Thread Portion
         private void ThreadUpdateTime()
-        {    
+        {
             while (true)
             {
-                _actualTemp();                   
-
-                //  Delay
-                Thread.Sleep(60000);
+                try
+                {
+                    _actualTemp();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ThreadUpdateTime : " + ex.Message);
+                }
+                finally
+                {
+                    //  Delay
+                    Thread.Sleep(60000);
+                }
             }
         }
-
         private void ThreadUpdateSetting()
-        {   
+        {
             while (true)
             {
-                _actual_setting();
-                //_get_event_all();
-                //  Delay
-                Thread.Sleep(5000);       
-                
+                try
+                {
+                    _actual_setting();
+                    _get_event_all();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ThreadUpdateSetting : " + ex.Message);
+                }
+                finally
+                {
+                    //  Delay
+                    Thread.Sleep(5000);
+                }
             }
         }
-
         private void ThreadUpdateEvent()
         {
             while (true)
             {
-                _get_event_all();
-                //  Delay
-                Thread.Sleep(5000);
+                try
+                {
+                    //_get_event_all();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("ThreadUpdateEvent : " + ex.Message);
+                }
+                finally
+                {
+                    //  Delay
+                    Thread.Sleep(5000);
+                }
+
             }
         }
 
@@ -163,10 +193,10 @@ namespace Smart_Temperature_Monitoring
                 chTemp3.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_hi"])));
                 chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
 
-                // plot gv status                
-                gvData1.ClearSelection();
-                gvData2.ClearSelection();
-                gvData3.ClearSelection();
+                //// plot gv status                
+                //gvData1.ClearSelection();
+                //gvData2.ClearSelection();
+                //gvData3.ClearSelection();
 
                 if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
                 {
@@ -228,18 +258,23 @@ namespace Smart_Temperature_Monitoring
         {
             _pGet_event_all = new DataTable();
             _pGet_event_all = pGet_event_all();
+                        
             if (_pGet_event_all != null)
-            {
-                //  Clear gv
-                //gvEventAll.Columns.Clear();
-                //gvEventAll.Rows.Clear();
-                //gvEventAll.DataSource = null;
-                //gvEventAll.ClearSelection();
-
+            {  
                 if (_EventId != Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]))
-                {
-                    gvEventAll.DataSource = _pGet_event_all;
+                {                
+
+                    //  Clear gv                
+                    gvEventAll.Rows.Clear();
+                    
+                    // Plot data to gridView
+                    for (int i = 0; i < _pGet_event_all.Rows.Count ; i++)
+                        gvEventAll.Rows.Add(_pGet_event_all.Rows[i]["create_datetime"], _pGet_event_all.Rows[i]["zone_name"], _pGet_event_all.Rows[i]["event_detail"]);
+                    
+                    // Keep Id for check next time
                     _EventId = Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]);
+
+                    gvEventAll.ClearSelection();
                 }                
             }
         }

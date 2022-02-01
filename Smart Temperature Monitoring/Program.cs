@@ -8,6 +8,7 @@ namespace Smart_Temperature_Monitoring
         //  Declare Logging
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         //private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof(Program));
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -15,9 +16,6 @@ namespace Smart_Temperature_Monitoring
         static void Main()
         {
             log.Info("Program start");
-            log.Info("Info Message");
-            log.Error("Error Message");
-            log.Warn("Warning Message");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
