@@ -8,6 +8,9 @@ namespace Smart_Temperature_Monitoring
 {
     public partial class sfrmEvent1 : Form
     {
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private static DataTable _pGet_event = new DataTable();
 
         public sfrmEvent1()
@@ -42,13 +45,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_event", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_event SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_event Exception : " + ex.Message);
             }
             return dataTable;
         }

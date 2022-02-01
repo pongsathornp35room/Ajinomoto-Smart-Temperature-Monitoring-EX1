@@ -14,6 +14,9 @@ namespace Smart_Temperature_Monitoring
 {
     public partial class sfrmReport1 : Form
     {
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private static DataTable _pGet_Temp_data = new DataTable();
         private static DataTable skyscrapers = new DataTable();
 
@@ -38,13 +41,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_data_for_report", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("Report pGet_Temp_Range SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("Report pGet_Temp_Range Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -309,7 +314,8 @@ namespace Smart_Temperature_Monitoring
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Exception error\n" + ex.Message);
+                MessageBox.Show("Save report Exception \n" + ex.Message);
+                log.Error("Save report Exception : " + ex.Message);
             }
             
         }

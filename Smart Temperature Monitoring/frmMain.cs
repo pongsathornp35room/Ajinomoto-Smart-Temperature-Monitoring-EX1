@@ -11,7 +11,12 @@ namespace Smart_Temperature_Monitoring
 {
     public partial class frmMain : Form
     {
-        //  Global varriables
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public DateTime dt = DateTime.Now;
+
+        //  Local varriables
         private Form _activeForm = null;
         Color[] _blinkBgTimeColor = { Color.FromArgb(37, 37, 38), Color.FromArgb(186, 218, 85) };
 
@@ -41,7 +46,7 @@ namespace Smart_Temperature_Monitoring
             {
                 try
                 {
-                    DateTime dt = DateTime.Now;
+                    dt = DateTime.Now;
                     BtnCurrentTime.Text = dt.ToString("HH:mm:ss");
                     LbDate.Text = dt.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
 
@@ -51,10 +56,18 @@ namespace Smart_Temperature_Monitoring
 
                     else
                         LbTimeBlink.BackColor = _blinkBgTimeColor[0];
+
+                    //Reset graph & status
+                    //if(dt.ToString("HH:mm:") == "0:40")
+                    //{
+                    //    sfrmOverview f = new sfrmOverview();
+                    //    f.initTempData();
+                    //}
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ThreadUpdateTime: " + ex.Message);
+                    MessageBox.Show("ThreadUpdateTime Exception : " + ex.Message);
+                    log.Error("ThreadUpdateTime Exception : " + ex.Message);
                 }
                 finally
                 {
@@ -67,6 +80,7 @@ namespace Smart_Temperature_Monitoring
         //  Button event
         private void btn_back_Click(object sender, EventArgs e)
         {
+            log.Info("Program exit by user");
             System.Windows.Forms.Application.ExitThread();
             System.Environment.Exit(0);
         }

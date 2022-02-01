@@ -8,6 +8,9 @@ namespace Smart_Temperature_Monitoring
 {
     public partial class sfrmSetting1 : Form
     {
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         //  Local varriable
         private static DataTable _pGet_setting = new DataTable();
         private static DataTable _pUpdate_setting = new DataTable();
@@ -31,6 +34,7 @@ namespace Smart_Temperature_Monitoring
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Error("sfrmSetting1_Load Exception : " + ex.Message);
                 this.Close();
             }            
 
@@ -68,13 +72,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_setting", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("Setting pGet_setting SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("Setting pGet_setting Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -94,13 +100,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pUpdate_setting", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("Setting pUpdate_setting SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("Setting pUpdate_setting Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -143,6 +151,7 @@ namespace Smart_Temperature_Monitoring
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ข้อความจากระบบ");
+                log.Error("Setting btnSave_MouseDown Exception : " + ex.Message);
             }
         }
 

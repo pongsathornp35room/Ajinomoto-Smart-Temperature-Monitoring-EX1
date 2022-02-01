@@ -17,7 +17,10 @@ namespace Smart_Temperature_Monitoring
 {
     
     public partial class sfrmOverview : Form
-    {        
+    {
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         //  Global varriable
         public static int _selectedData = 0;
         public static int _SettingZoneId = 0;  
@@ -63,7 +66,7 @@ namespace Smart_Temperature_Monitoring
             threadUpdateSetting.IsBackground = true;
             threadUpdateSetting.Start();
 
-            //  Create Thread threadUpdateEvent --> Update Event all
+            //Create Thread threadUpdateEvent --> Update Event all
             Thread threadUpdateEvent = new Thread(ThreadUpdateEvent);
             threadUpdateEvent.IsBackground = true;
             threadUpdateEvent.Start();            
@@ -81,12 +84,13 @@ namespace Smart_Temperature_Monitoring
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ThreadUpdateTime : " + ex.Message);
+                    MessageBox.Show("ThreadUpdateTime Exception : " + ex.Message);
+                    log.Error("ThreadUpdateTime Exception : " + ex.Message);
                 }
                 finally
                 {
                     //  Delay
-                    Thread.Sleep(60000);
+                    Thread.Sleep(300000);
                 }
             }
         }
@@ -101,7 +105,8 @@ namespace Smart_Temperature_Monitoring
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ThreadUpdateSetting : " + ex.Message);
+                    MessageBox.Show("ThreadUpdateSetting Exception : " + ex.Message);
+                    log.Error("ThreadUpdateSetting Exception : " + ex.Message);
                 }
                 finally
                 {
@@ -116,11 +121,23 @@ namespace Smart_Temperature_Monitoring
             {
                 try
                 {
-                    //_get_event_all();
+                    //MessageBox.Show(DateTime.Now.ToString("HH:mm"));
+                    if (DateTime.Now.ToString("HH:mm") == "01:14")
+                    {
+                        //gvData1.Rows.Clear();
+                        //gvData2.Rows.Clear();
+                        //gvData3.Rows.Clear();
+
+                        //chTemp1.Series.Clear();
+                        //chTemp2.Series.Clear();
+                        //chTemp3.Series.Clear();
+                    }
+
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("ThreadUpdateEvent : " + ex.Message);
+                    MessageBox.Show("ThreadUpdateEvent Exception : " + ex.Message);
+                    log.Error("ThreadUpdateEvent Exception : " + ex.Message);
                 }
                 finally
                 {
@@ -279,7 +296,7 @@ namespace Smart_Temperature_Monitoring
             }
         }
 
-        private void initTempData()
+        public void initTempData()
         {
             _pGet_Temp_data = new DataTable();
             _pGet_Temp_data = pGet_Temp_data();
@@ -561,13 +578,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_Temp_actual", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_actual SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_actual Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -585,13 +604,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_Temp_data", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_data SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_data Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -607,13 +628,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_setting_actual", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_setting_actual SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_setting_actual Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -629,13 +652,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_event_all", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_event_all SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_event_all Exception : " + ex.Message);
             }
             return dataTable;
         }

@@ -16,6 +16,9 @@ namespace Smart_Temperature_Monitoring
 {
     public partial class sfrmData1 : Form
     {
+        //  Declare Logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         //  Global varriable
         private static DataTable _pGet_Temp_data = new DataTable();
         private static DataTable _pGet_zone_name = new DataTable();
@@ -126,7 +129,8 @@ namespace Smart_Temperature_Monitoring
             }
             catch (Exception ex)
             {
-                throw ex;
+                log.Error("CreateCSVFile Exception : " + ex.Message);
+                throw ex;                
             }
         }
 
@@ -146,13 +150,15 @@ namespace Smart_Temperature_Monitoring
                 ds = new DBClass().SqlExcSto("pGet_data_with_sampling_time", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_Range SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_Temp_Range Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -169,13 +175,15 @@ namespace Smart_Temperature_Monitoring
                 dataTable = ds.Tables[0];
 
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
                 dataTable = null;
+                log.Error("pGet_zone_name SqlException : " + e.Message);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 dataTable = null;
+                log.Error("pGet_zone_name Exception : " + ex.Message);
             }
             return dataTable;
         }
@@ -237,6 +245,7 @@ namespace Smart_Temperature_Monitoring
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Error("btnOk_Click Exception : " + ex.Message);
             }
 
         }
@@ -256,6 +265,7 @@ namespace Smart_Temperature_Monitoring
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                log.Error("btnExport_Click Exception : " + ex.Message);
             }
         }
 
