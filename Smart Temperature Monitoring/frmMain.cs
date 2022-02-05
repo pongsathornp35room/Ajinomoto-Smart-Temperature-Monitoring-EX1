@@ -78,12 +78,7 @@ namespace Smart_Temperature_Monitoring
         }        
 
         //  Button event
-        private void btn_back_Click(object sender, EventArgs e)
-        {
-            log.Info("Program exit by user");
-            System.Windows.Forms.Application.ExitThread();
-            System.Environment.Exit(0);
-        }
+       
         private void btn_minimize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -132,5 +127,11 @@ namespace Smart_Temperature_Monitoring
             }
         }
 
+        private void btn_exit_Click(object sender, EventArgs e)
+        {
+            log.Info("Program exit by user");
+            System.Windows.Forms.Application.ExitThread();
+            System.Environment.Exit(0);
+        }
     }
 }

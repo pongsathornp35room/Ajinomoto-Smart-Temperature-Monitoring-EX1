@@ -3,6 +3,7 @@ using LiveCharts.Wpf; //The WPF controls
 using LiveCharts.Configurations;
 using System.Data.SqlClient;
 using System;
+using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
@@ -254,13 +255,21 @@ namespace Smart_Temperature_Monitoring
         {
             try
             {
-                string filePath;
-                //เขียนเงื่อนไขว่ามี path นี้หรือป่าว (exist folder) ภ้าไม่มีให้สร้าง floder นี้ขึ้นมาแล้ว บันทึก
-                // เอาชื่อ path ไปวไว้ที่ app.config
-                string dt = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-                filePath = "E:\\ENGINEERING\\2565\\65WIA-001_Ajinomoto_smart_temp_monitoring\\ProjectBackup\\Project\\Report\\DATA_EXPORT_TEMP_EX1_" + dt + ".csv";
+                
+                // Check folder path 
+                string DestinationPath = ConfigurationManager.AppSettings["ExportDestination"];
+                if (!Directory.Exists(DestinationPath))
+                {
+                    // Create folder
+                    Directory.CreateDirectory(DestinationPath);
+                }
+
+                string dt = "EXPORT_TEMP_EX1" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv";
+                string filePath = DestinationPath + dt ;
                 CreateCSVFile(ref _pGet_Temp_data, filePath);
+
                 MessageBox.Show("Data export by user");
+                log.Info("Data export by user");
             } 
             catch (Exception ex)
             {

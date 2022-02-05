@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sfrmOverview));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelMain2 = new System.Windows.Forms.Panel();
             this.lbZone2 = new System.Windows.Forms.Label();
             this.lbHigh2 = new System.Windows.Forms.Label();
@@ -628,9 +629,6 @@
             this.Column286 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column287 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column288 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
             this.chTemp1 = new LiveCharts.WinForms.CartesianChart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnSetting1 = new System.Windows.Forms.Button();
@@ -971,24 +969,24 @@
             this.panelMain2.Controls.Add(this.lbValue2);
             this.panelMain2.Location = new System.Drawing.Point(8, 9);
             this.panelMain2.Name = "panelMain2";
-            this.panelMain2.Size = new System.Drawing.Size(218, 218);
+            this.panelMain2.Size = new System.Drawing.Size(218, 238);
             this.panelMain2.TabIndex = 0;
             // 
             // lbZone2
             // 
             this.lbZone2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lbZone2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbZone2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbZone2.Location = new System.Drawing.Point(0, 0);
             this.lbZone2.Name = "lbZone2";
-            this.lbZone2.Size = new System.Drawing.Size(218, 25);
+            this.lbZone2.Size = new System.Drawing.Size(218, 30);
             this.lbZone2.TabIndex = 4;
             this.lbZone2.Text = "ZONE";
             this.lbZone2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbHigh2
             // 
-            this.lbHigh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHigh2.Location = new System.Drawing.Point(143, 187);
+            this.lbHigh2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHigh2.Location = new System.Drawing.Point(143, 200);
             this.lbHigh2.Name = "lbHigh2";
             this.lbHigh2.Size = new System.Drawing.Size(75, 25);
             this.lbHigh2.TabIndex = 4;
@@ -998,8 +996,8 @@
             // 
             // lbLow2
             // 
-            this.lbLow2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLow2.Location = new System.Drawing.Point(3, 185);
+            this.lbLow2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLow2.Location = new System.Drawing.Point(3, 198);
             this.lbLow2.Name = "lbLow2";
             this.lbLow2.Size = new System.Drawing.Size(75, 25);
             this.lbLow2.TabIndex = 4;
@@ -1010,7 +1008,7 @@
             // lbValue2
             // 
             this.lbValue2.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbValue2.Location = new System.Drawing.Point(0, 77);
+            this.lbValue2.Location = new System.Drawing.Point(0, 89);
             this.lbValue2.Name = "lbValue2";
             this.lbValue2.Size = new System.Drawing.Size(218, 75);
             this.lbValue2.TabIndex = 3;
@@ -1024,9 +1022,9 @@
             this.panel7.Controls.Add(this.panel12);
             this.panel7.Controls.Add(this.panelMain3);
             this.panel7.Controls.Add(this.panel8);
-            this.panel7.Location = new System.Drawing.Point(9, 491);
+            this.panel7.Location = new System.Drawing.Point(9, 536);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1899, 235);
+            this.panel7.Size = new System.Drawing.Size(1899, 255);
             this.panel7.TabIndex = 2;
             // 
             // panel12
@@ -1035,7 +1033,7 @@
             this.panel12.Controls.Add(this.chTemp3);
             this.panel12.Location = new System.Drawing.Point(232, 9);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(1493, 217);
+            this.panel12.Size = new System.Drawing.Size(1493, 238);
             this.panel12.TabIndex = 5;
             // 
             // gvData3
@@ -1342,7 +1340,7 @@
             this.gvData3.Enabled = false;
             this.gvData3.EnableHeadersVisualStyles = false;
             this.gvData3.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData3.Location = new System.Drawing.Point(18, 186);
+            this.gvData3.Location = new System.Drawing.Point(18, 213);
             this.gvData3.MultiSelect = false;
             this.gvData3.Name = "gvData3";
             this.gvData3.ReadOnly = true;
@@ -1354,7 +1352,7 @@
             this.gvData3.ShowCellToolTips = false;
             this.gvData3.ShowEditingIcon = false;
             this.gvData3.ShowRowErrors = false;
-            this.gvData3.Size = new System.Drawing.Size(1455, 30);
+            this.gvData3.Size = new System.Drawing.Size(1455, 23);
             this.gvData3.TabIndex = 6;
             this.gvData3.TabStop = false;
             // 
@@ -3090,7 +3088,7 @@
             // 
             this.chTemp3.Location = new System.Drawing.Point(3, 3);
             this.chTemp3.Name = "chTemp3";
-            this.chTemp3.Size = new System.Drawing.Size(1487, 187);
+            this.chTemp3.Size = new System.Drawing.Size(1487, 207);
             this.chTemp3.TabIndex = 3;
             this.chTemp3.Text = "chTemp3";
             // 
@@ -3103,24 +3101,24 @@
             this.panelMain3.Controls.Add(this.lbValue3);
             this.panelMain3.Location = new System.Drawing.Point(8, 9);
             this.panelMain3.Name = "panelMain3";
-            this.panelMain3.Size = new System.Drawing.Size(218, 218);
+            this.panelMain3.Size = new System.Drawing.Size(218, 238);
             this.panelMain3.TabIndex = 0;
             // 
             // lbZone3
             // 
             this.lbZone3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lbZone3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbZone3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbZone3.Location = new System.Drawing.Point(0, 1);
             this.lbZone3.Name = "lbZone3";
-            this.lbZone3.Size = new System.Drawing.Size(218, 25);
+            this.lbZone3.Size = new System.Drawing.Size(218, 30);
             this.lbZone3.TabIndex = 4;
             this.lbZone3.Text = "ZONE";
             this.lbZone3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbHigh3
             // 
-            this.lbHigh3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHigh3.Location = new System.Drawing.Point(143, 185);
+            this.lbHigh3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHigh3.Location = new System.Drawing.Point(143, 198);
             this.lbHigh3.Name = "lbHigh3";
             this.lbHigh3.Size = new System.Drawing.Size(75, 25);
             this.lbHigh3.TabIndex = 4;
@@ -3130,8 +3128,8 @@
             // 
             // lbLow3
             // 
-            this.lbLow3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLow3.Location = new System.Drawing.Point(3, 185);
+            this.lbLow3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLow3.Location = new System.Drawing.Point(3, 198);
             this.lbLow3.Name = "lbLow3";
             this.lbLow3.Size = new System.Drawing.Size(75, 25);
             this.lbLow3.TabIndex = 4;
@@ -3142,7 +3140,7 @@
             // lbValue3
             // 
             this.lbValue3.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbValue3.Location = new System.Drawing.Point(0, 67);
+            this.lbValue3.Location = new System.Drawing.Point(0, 79);
             this.lbValue3.Name = "lbValue3";
             this.lbValue3.Size = new System.Drawing.Size(218, 75);
             this.lbValue3.TabIndex = 3;
@@ -3158,7 +3156,7 @@
             this.panel8.Controls.Add(this.btnReport3);
             this.panel8.Location = new System.Drawing.Point(1732, 9);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(156, 217);
+            this.panel8.Size = new System.Drawing.Size(156, 238);
             this.panel8.TabIndex = 2;
             // 
             // btnSetting3
@@ -3171,9 +3169,9 @@
             this.btnSetting3.ForeColor = System.Drawing.Color.White;
             this.btnSetting3.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting3.Image")));
             this.btnSetting3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSetting3.Location = new System.Drawing.Point(0, 162);
+            this.btnSetting3.Location = new System.Drawing.Point(0, 177);
             this.btnSetting3.Name = "btnSetting3";
-            this.btnSetting3.Size = new System.Drawing.Size(156, 54);
+            this.btnSetting3.Size = new System.Drawing.Size(156, 59);
             this.btnSetting3.TabIndex = 0;
             this.btnSetting3.Text = "          SETTING";
             this.btnSetting3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3190,9 +3188,9 @@
             this.btnData3.ForeColor = System.Drawing.Color.White;
             this.btnData3.Image = ((System.Drawing.Image)(resources.GetObject("btnData3.Image")));
             this.btnData3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnData3.Location = new System.Drawing.Point(0, 108);
+            this.btnData3.Location = new System.Drawing.Point(0, 118);
             this.btnData3.Name = "btnData3";
-            this.btnData3.Size = new System.Drawing.Size(156, 54);
+            this.btnData3.Size = new System.Drawing.Size(156, 59);
             this.btnData3.TabIndex = 0;
             this.btnData3.Text = "          DATA";
             this.btnData3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3209,9 +3207,9 @@
             this.btnEven3.ForeColor = System.Drawing.Color.White;
             this.btnEven3.Image = ((System.Drawing.Image)(resources.GetObject("btnEven3.Image")));
             this.btnEven3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEven3.Location = new System.Drawing.Point(0, 54);
+            this.btnEven3.Location = new System.Drawing.Point(0, 59);
             this.btnEven3.Name = "btnEven3";
-            this.btnEven3.Size = new System.Drawing.Size(156, 54);
+            this.btnEven3.Size = new System.Drawing.Size(156, 59);
             this.btnEven3.TabIndex = 0;
             this.btnEven3.Text = "          EVENT";
             this.btnEven3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3230,7 +3228,7 @@
             this.btnReport3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReport3.Location = new System.Drawing.Point(0, 0);
             this.btnReport3.Name = "btnReport3";
-            this.btnReport3.Size = new System.Drawing.Size(156, 54);
+            this.btnReport3.Size = new System.Drawing.Size(156, 59);
             this.btnReport3.TabIndex = 0;
             this.btnReport3.Text = "          REPORT";
             this.btnReport3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -3245,19 +3243,16 @@
             this.panel2.Controls.Add(this.panelMain1);
             this.panel2.Location = new System.Drawing.Point(9, 9);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1899, 235);
+            this.panel2.Size = new System.Drawing.Size(1899, 255);
             this.panel2.TabIndex = 3;
             // 
             // panel10
             // 
             this.panel10.Controls.Add(this.gvData1);
-            this.panel10.Controls.Add(this.label23);
-            this.panel10.Controls.Add(this.label22);
-            this.panel10.Controls.Add(this.label18);
             this.panel10.Controls.Add(this.chTemp1);
             this.panel10.Location = new System.Drawing.Point(232, 9);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(1493, 217);
+            this.panel10.Size = new System.Drawing.Size(1493, 238);
             this.panel10.TabIndex = 4;
             // 
             // gvData1
@@ -3564,7 +3559,7 @@
             this.gvData1.Enabled = false;
             this.gvData1.EnableHeadersVisualStyles = false;
             this.gvData1.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData1.Location = new System.Drawing.Point(18, 186);
+            this.gvData1.Location = new System.Drawing.Point(18, 213);
             this.gvData1.MultiSelect = false;
             this.gvData1.Name = "gvData1";
             this.gvData1.ReadOnly = true;
@@ -3576,7 +3571,7 @@
             this.gvData1.ShowCellToolTips = false;
             this.gvData1.ShowEditingIcon = false;
             this.gvData1.ShowRowErrors = false;
-            this.gvData1.Size = new System.Drawing.Size(1455, 30);
+            this.gvData1.Size = new System.Drawing.Size(1455, 23);
             this.gvData1.TabIndex = 4;
             this.gvData1.TabStop = false;
             // 
@@ -5308,37 +5303,13 @@
             this.Column288.Name = "Column288";
             this.Column288.ReadOnly = true;
             // 
-            // label23
-            // 
-            this.label23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label23.Location = new System.Drawing.Point(1139, 187);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(50, 23);
-            this.label23.TabIndex = 0;
-            // 
-            // label22
-            // 
-            this.label22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.label22.Location = new System.Drawing.Point(1192, 187);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(50, 23);
-            this.label22.TabIndex = 0;
-            // 
-            // label18
-            // 
-            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.label18.Location = new System.Drawing.Point(1245, 187);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(50, 23);
-            this.label18.TabIndex = 0;
-            // 
             // chTemp1
             // 
             this.chTemp1.Location = new System.Drawing.Point(3, 3);
             this.chTemp1.Name = "chTemp1";
-            this.chTemp1.Size = new System.Drawing.Size(1487, 187);
+            this.chTemp1.Size = new System.Drawing.Size(1487, 207);
             this.chTemp1.TabIndex = 3;
-            this.chTemp1.Text = "cartesianChart1";
+            this.chTemp1.Text = "chTemp1";
             // 
             // panel3
             // 
@@ -5348,7 +5319,7 @@
             this.panel3.Controls.Add(this.btnReport1);
             this.panel3.Location = new System.Drawing.Point(1733, 8);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(156, 217);
+            this.panel3.Size = new System.Drawing.Size(156, 238);
             this.panel3.TabIndex = 2;
             // 
             // btnSetting1
@@ -5361,9 +5332,9 @@
             this.btnSetting1.ForeColor = System.Drawing.Color.White;
             this.btnSetting1.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting1.Image")));
             this.btnSetting1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSetting1.Location = new System.Drawing.Point(0, 162);
+            this.btnSetting1.Location = new System.Drawing.Point(0, 177);
             this.btnSetting1.Name = "btnSetting1";
-            this.btnSetting1.Size = new System.Drawing.Size(156, 54);
+            this.btnSetting1.Size = new System.Drawing.Size(156, 59);
             this.btnSetting1.TabIndex = 0;
             this.btnSetting1.Text = "          SETTING";
             this.btnSetting1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -5380,9 +5351,9 @@
             this.btnData1.ForeColor = System.Drawing.Color.White;
             this.btnData1.Image = ((System.Drawing.Image)(resources.GetObject("btnData1.Image")));
             this.btnData1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnData1.Location = new System.Drawing.Point(0, 108);
+            this.btnData1.Location = new System.Drawing.Point(0, 118);
             this.btnData1.Name = "btnData1";
-            this.btnData1.Size = new System.Drawing.Size(156, 54);
+            this.btnData1.Size = new System.Drawing.Size(156, 59);
             this.btnData1.TabIndex = 0;
             this.btnData1.Text = "          DATA";
             this.btnData1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -5399,9 +5370,9 @@
             this.btnEven1.ForeColor = System.Drawing.Color.White;
             this.btnEven1.Image = ((System.Drawing.Image)(resources.GetObject("btnEven1.Image")));
             this.btnEven1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEven1.Location = new System.Drawing.Point(0, 54);
+            this.btnEven1.Location = new System.Drawing.Point(0, 59);
             this.btnEven1.Name = "btnEven1";
-            this.btnEven1.Size = new System.Drawing.Size(156, 54);
+            this.btnEven1.Size = new System.Drawing.Size(156, 59);
             this.btnEven1.TabIndex = 0;
             this.btnEven1.Text = "          EVENT";
             this.btnEven1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -5420,7 +5391,7 @@
             this.btnReport1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReport1.Location = new System.Drawing.Point(0, 0);
             this.btnReport1.Name = "btnReport1";
-            this.btnReport1.Size = new System.Drawing.Size(156, 54);
+            this.btnReport1.Size = new System.Drawing.Size(156, 59);
             this.btnReport1.TabIndex = 0;
             this.btnReport1.Text = "          REPORT";
             this.btnReport1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -5436,24 +5407,24 @@
             this.panelMain1.Controls.Add(this.lbValue1);
             this.panelMain1.Location = new System.Drawing.Point(8, 8);
             this.panelMain1.Name = "panelMain1";
-            this.panelMain1.Size = new System.Drawing.Size(218, 218);
+            this.panelMain1.Size = new System.Drawing.Size(218, 238);
             this.panelMain1.TabIndex = 0;
             // 
             // lbZone1
             // 
             this.lbZone1.BackColor = System.Drawing.Color.Red;
-            this.lbZone1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbZone1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbZone1.Location = new System.Drawing.Point(0, 0);
             this.lbZone1.Name = "lbZone1";
-            this.lbZone1.Size = new System.Drawing.Size(218, 25);
+            this.lbZone1.Size = new System.Drawing.Size(218, 30);
             this.lbZone1.TabIndex = 4;
             this.lbZone1.Text = "ZONE";
             this.lbZone1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbHigh1
             // 
-            this.lbHigh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbHigh1.Location = new System.Drawing.Point(140, 185);
+            this.lbHigh1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHigh1.Location = new System.Drawing.Point(140, 198);
             this.lbHigh1.Name = "lbHigh1";
             this.lbHigh1.Size = new System.Drawing.Size(75, 25);
             this.lbHigh1.TabIndex = 4;
@@ -5463,8 +5434,8 @@
             // 
             // lbLow1
             // 
-            this.lbLow1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbLow1.Location = new System.Drawing.Point(3, 186);
+            this.lbLow1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbLow1.Location = new System.Drawing.Point(3, 199);
             this.lbLow1.Name = "lbLow1";
             this.lbLow1.Size = new System.Drawing.Size(75, 25);
             this.lbLow1.TabIndex = 4;
@@ -5475,7 +5446,7 @@
             // lbValue1
             // 
             this.lbValue1.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbValue1.Location = new System.Drawing.Point(3, 69);
+            this.lbValue1.Location = new System.Drawing.Point(3, 81);
             this.lbValue1.Name = "lbValue1";
             this.lbValue1.Size = new System.Drawing.Size(212, 75);
             this.lbValue1.TabIndex = 3;
@@ -5489,9 +5460,9 @@
             this.panel4.Controls.Add(this.panel11);
             this.panel4.Controls.Add(this.panelMain2);
             this.panel4.Controls.Add(this.panel5);
-            this.panel4.Location = new System.Drawing.Point(9, 250);
+            this.panel4.Location = new System.Drawing.Point(9, 272);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1899, 235);
+            this.panel4.Size = new System.Drawing.Size(1899, 255);
             this.panel4.TabIndex = 4;
             // 
             // panel11
@@ -5500,7 +5471,7 @@
             this.panel11.Controls.Add(this.chTemp2);
             this.panel11.Location = new System.Drawing.Point(232, 9);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(1493, 217);
+            this.panel11.Size = new System.Drawing.Size(1493, 238);
             this.panel11.TabIndex = 5;
             // 
             // gvData2
@@ -5807,7 +5778,7 @@
             this.gvData2.Enabled = false;
             this.gvData2.EnableHeadersVisualStyles = false;
             this.gvData2.GridColor = System.Drawing.SystemColors.Window;
-            this.gvData2.Location = new System.Drawing.Point(18, 187);
+            this.gvData2.Location = new System.Drawing.Point(18, 214);
             this.gvData2.MultiSelect = false;
             this.gvData2.Name = "gvData2";
             this.gvData2.ReadOnly = true;
@@ -5819,7 +5790,7 @@
             this.gvData2.ShowCellToolTips = false;
             this.gvData2.ShowEditingIcon = false;
             this.gvData2.ShowRowErrors = false;
-            this.gvData2.Size = new System.Drawing.Size(1455, 30);
+            this.gvData2.Size = new System.Drawing.Size(1455, 23);
             this.gvData2.TabIndex = 5;
             this.gvData2.TabStop = false;
             // 
@@ -7555,7 +7526,7 @@
             // 
             this.chTemp2.Location = new System.Drawing.Point(0, 3);
             this.chTemp2.Name = "chTemp2";
-            this.chTemp2.Size = new System.Drawing.Size(1487, 187);
+            this.chTemp2.Size = new System.Drawing.Size(1487, 207);
             this.chTemp2.TabIndex = 3;
             this.chTemp2.Text = "chTemp2";
             // 
@@ -7567,7 +7538,7 @@
             this.panel5.Controls.Add(this.btnReport2);
             this.panel5.Location = new System.Drawing.Point(1732, 9);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(156, 217);
+            this.panel5.Size = new System.Drawing.Size(156, 238);
             this.panel5.TabIndex = 2;
             // 
             // btnSetting2
@@ -7580,9 +7551,9 @@
             this.btnSetting2.ForeColor = System.Drawing.Color.White;
             this.btnSetting2.Image = ((System.Drawing.Image)(resources.GetObject("btnSetting2.Image")));
             this.btnSetting2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSetting2.Location = new System.Drawing.Point(0, 162);
+            this.btnSetting2.Location = new System.Drawing.Point(0, 177);
             this.btnSetting2.Name = "btnSetting2";
-            this.btnSetting2.Size = new System.Drawing.Size(156, 54);
+            this.btnSetting2.Size = new System.Drawing.Size(156, 59);
             this.btnSetting2.TabIndex = 0;
             this.btnSetting2.Text = "          SETTING";
             this.btnSetting2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -7599,9 +7570,9 @@
             this.btnData2.ForeColor = System.Drawing.Color.White;
             this.btnData2.Image = ((System.Drawing.Image)(resources.GetObject("btnData2.Image")));
             this.btnData2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnData2.Location = new System.Drawing.Point(0, 108);
+            this.btnData2.Location = new System.Drawing.Point(0, 118);
             this.btnData2.Name = "btnData2";
-            this.btnData2.Size = new System.Drawing.Size(156, 54);
+            this.btnData2.Size = new System.Drawing.Size(156, 59);
             this.btnData2.TabIndex = 0;
             this.btnData2.Text = "          DATA";
             this.btnData2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -7618,9 +7589,9 @@
             this.btnEven2.ForeColor = System.Drawing.Color.White;
             this.btnEven2.Image = ((System.Drawing.Image)(resources.GetObject("btnEven2.Image")));
             this.btnEven2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEven2.Location = new System.Drawing.Point(0, 54);
+            this.btnEven2.Location = new System.Drawing.Point(0, 59);
             this.btnEven2.Name = "btnEven2";
-            this.btnEven2.Size = new System.Drawing.Size(156, 54);
+            this.btnEven2.Size = new System.Drawing.Size(156, 59);
             this.btnEven2.TabIndex = 0;
             this.btnEven2.Text = "          EVENT";
             this.btnEven2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -7639,7 +7610,7 @@
             this.btnReport2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnReport2.Location = new System.Drawing.Point(0, 0);
             this.btnReport2.Name = "btnReport2";
-            this.btnReport2.Size = new System.Drawing.Size(156, 54);
+            this.btnReport2.Size = new System.Drawing.Size(156, 59);
             this.btnReport2.TabIndex = 0;
             this.btnReport2.Text = "          REPORT";
             this.btnReport2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -7657,24 +7628,30 @@
             this.gvEventAll.BackgroundColor = System.Drawing.Color.White;
             this.gvEventAll.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvEventAll.CausesValidation = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvEventAll.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gvEventAll.ColumnHeadersHeight = 30;
             this.gvEventAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.gvEventAll.ColumnHeadersVisible = false;
             this.gvEventAll.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date_Time,
             this.Zone,
             this.Event,
             this.Status});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvEventAll.DefaultCellStyle = dataGridViewCellStyle1;
-            this.gvEventAll.Enabled = false;
-            this.gvEventAll.Location = new System.Drawing.Point(9, 732);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvEventAll.DefaultCellStyle = dataGridViewCellStyle2;
+            this.gvEventAll.Location = new System.Drawing.Point(9, 797);
             this.gvEventAll.MultiSelect = false;
             this.gvEventAll.Name = "gvEventAll";
             this.gvEventAll.ReadOnly = true;
@@ -7686,7 +7663,7 @@
             this.gvEventAll.ShowCellToolTips = false;
             this.gvEventAll.ShowEditingIcon = false;
             this.gvEventAll.ShowRowErrors = false;
-            this.gvEventAll.Size = new System.Drawing.Size(1899, 86);
+            this.gvEventAll.Size = new System.Drawing.Size(1899, 175);
             this.gvEventAll.TabIndex = 5;
             // 
             // Date_Time
@@ -7722,7 +7699,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1920, 820);
+            this.ClientSize = new System.Drawing.Size(1920, 920);
             this.Controls.Add(this.gvEventAll);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel2);
@@ -7777,9 +7754,6 @@
         private System.Windows.Forms.Label lbZone1;
         private System.Windows.Forms.Label lbHigh1;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button btnSetting3;
         private System.Windows.Forms.Button btnData3;
