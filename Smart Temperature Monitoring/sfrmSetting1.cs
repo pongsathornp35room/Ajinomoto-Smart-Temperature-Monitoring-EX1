@@ -59,7 +59,9 @@ namespace Smart_Temperature_Monitoring
             }
         }
 
-        //  SQL interface section
+        ////////////////////////////////////////////////////////////
+        ///////////////// SQL interface section  ///////////////////
+        ////////////////////////////////////////////////////////////
         private static DataTable pGet_setting(int ZoneId)
         {
             DataTable dataTable = new DataTable();
@@ -114,7 +116,9 @@ namespace Smart_Temperature_Monitoring
         }
 
 
-        //  Button event
+        ////////////////////////////////////////////////////////////
+        //////////////////////  Button event  //////////////////////
+        ////////////////////////////////////////////////////////////
         private void btnSave_MouseDown(object sender, MouseEventArgs e)
         {
             try

@@ -32,11 +32,18 @@ namespace Smart_Temperature_Monitoring
         private static DataTable _pGet_Temp_data = new DataTable();
         private static DataTable _pGet_event_all = new DataTable();
 
+        
+        private static int sampling_time = 5;   // sampling_time in minute
+        private static int sampling_all_day = 24 * 60 / sampling_time;
+
         private static int actualTempID = 0;
         private static int actualGvCell = 0;
         private static int _EventId = 0;
 
-        private static DateTime dateToday;
+        private static DateTime init_date;
+        private static DateTime last_date;
+        private static string sinit_date;
+        private static string slast_date;
 
         //  Form load
         public sfrmOverview()
@@ -77,7 +84,7 @@ namespace Smart_Temperature_Monitoring
             {
                 try
                 {
-                    _actualTemp();
+                   _actualTemp();
                 }
                 catch (Exception ex)
                 {
@@ -119,15 +126,24 @@ namespace Smart_Temperature_Monitoring
         // Run every sampling time : plot data 1 sampling
         public void _actualTemp()
         {
+                        
+
             _pGet_Temp_actual = new DataTable();
             _pGet_Temp_actual = pGet_Temp_actual();
             if (_pGet_Temp_actual != null)
             {
-                if (dateToday.ToString("dd-MM-yyyy") != Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]).ToString("dd-MM-yyyy"))
+                // Formatting initial date to dd-MM-yyyy
+                sinit_date = init_date.ToString("dd-MM-yyyy");
+
+                // Kepp and formatting last date to dd-MM-yyyy
+                last_date = Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]);                
+                slast_date = last_date.ToString("dd-MM-yyyy");
+
+                // Check date to clear data 
+                if (sinit_date != slast_date)
                 {
                     clearAndInit();
-                    dateToday = Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]);
-                    //MessageBox.Show(dateToday.ToString());
+                    init_date = last_date;
                 }
 
                 // actual temp 
@@ -173,18 +189,22 @@ namespace Smart_Temperature_Monitoring
                 }
 
                 // plot graph
-                chTemp1.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1"])));
-                chTemp1.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_hi"])));
-                chTemp1.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_lo"])));
+                if(chTemp1.Series[0].Values.Count <= sampling_all_day)
+                {
+                    chTemp1.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1"])));
+                    chTemp1.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_hi"])));
+                    chTemp1.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_lo"])));
 
-                chTemp2.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2"])));
-                chTemp2.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_hi"])));
-                chTemp2.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_lo"])));
+                    chTemp2.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2"])));
+                    chTemp2.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_hi"])));
+                    chTemp2.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp2_lo"])));
 
-                chTemp3.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3"])));
-                chTemp3.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_hi"])));
-                chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
+                    chTemp3.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3"])));
+                    chTemp3.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_hi"])));
+                    chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
 
+                }
+                
                 //// plot gv status                
                 //gvData1.ClearSelection();
                 //gvData2.ClearSelection();
@@ -293,10 +313,11 @@ namespace Smart_Temperature_Monitoring
                 var hi3 = new ChartValues<double>();
                 var lo3 = new ChartValues<double>();
 
-                dateToday = Convert.ToDateTime(_pGet_Temp_data.Rows[0]["create_datetime"]);
+                // Keep initial date
+                init_date = Convert.ToDateTime(_pGet_Temp_data.Rows[0]["create_datetime"]);
 
                 // plot graph
-                for (var i = 0; i < _pGet_Temp_data.Rows.Count; i++)
+                for (var i = 0; (i < _pGet_Temp_data.Rows.Count && i < sampling_all_day) ; i++)
                 {
                     values1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1"]));
                     hi1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1_hi"]));
@@ -410,60 +431,58 @@ namespace Smart_Temperature_Monitoring
 
 
                 IList<string> labelX = new List<string>();
-                for (int i = 0; i <= 287; i++)
-                    labelX.Add(System.DateTime.MinValue.AddMinutes(i*5).ToString("HH:mm"));
+                for (int i = 0; i <= sampling_all_day; i++)
+                    labelX.Add(System.DateTime.MinValue.AddMinutes(i* sampling_time).ToString("HH:mm"));
 
                 chTemp1.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 287,
+                    MaxValue = 288,
                     Labels = labelX
                 });
 
-                chTemp1.AxisY.Add(new Axis
-                {
-                    MinValue = 20,
-                    MaxValue = 30
-                });
+                //chTemp1.AxisY.Add(new Axis
+                //{
+                //    MinValue = 20,
+                //    MaxValue = 30
+                //});
 
                 chTemp2.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 287,
-                    Labels = labelX,
-                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
+                    MaxValue = 288,
+                    Labels = labelX
                 });
 
-                chTemp2.AxisY.Add(new Axis
-                {
-                    MinValue = 20,
-                    MaxValue = 30
-                });
+                //chTemp2.AxisY.Add(new Axis
+                //{
+                //    MinValue = 20,
+                //    MaxValue = 30
+                //});
 
                 chTemp3.AxisX.Add(new Axis
                 {
                     MinValue = 0,
-                    MaxValue = 287,
-                    Labels = labelX,
-                    LabelFormatter = val => new System.DateTime((long)val).ToString("HH:mm")
+                    MaxValue = 288,
+                    Labels = labelX
                 });
 
-                chTemp3.AxisY.Add(new Axis
-                {
-                    MinValue = 20,
-                    MaxValue = 30
-                });
+                //chTemp3.AxisY.Add(new Axis
+                //{
+                //    MinValue = 20,
+                //    MaxValue = 30
+                //});
 
 
                 // plot gv status
 
                 //Declare array for keep data
-                string[] status1 = new string[288];
-                string[] status2 = new string[288];
-                string[] status3 = new string[288];
+                string[] status1 = new string[sampling_all_day];
+                string[] status2 = new string[sampling_all_day];
+                string[] status3 = new string[sampling_all_day];
 
                 //Keep data to array
-                for (int i = 0; i < _pGet_Temp_data.Rows.Count && i < 24*60/5 ; i++)
+                for (int i = 0; i < _pGet_Temp_data.Rows.Count && i < sampling_all_day; i++)
                 {
                     status1[i] = _pGet_Temp_data.Rows[i]["temp1_result"].ToString();
                     status2[i] = _pGet_Temp_data.Rows[i]["temp2_result"].ToString();
@@ -479,7 +498,7 @@ namespace Smart_Temperature_Monitoring
                 gvData2.Rows.Add(status2);
                 gvData3.Rows.Add(status3);
 
-                for (int i = 0; i < _pGet_Temp_data.Rows.Count; i++)
+                for (int i = 0; i < _pGet_Temp_data.Rows.Count && i < sampling_all_day; i++)
                 {
                     if (status1[i] == "NG")
                     {
@@ -576,7 +595,9 @@ namespace Smart_Temperature_Monitoring
             chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
         }
 
-        //  SQL interface section
+        ////////////////////////////////////////////////////////////
+        ///////////////// SQL interface section  ///////////////////
+        ////////////////////////////////////////////////////////////
         private static DataTable pGet_Temp_actual()
         {
             DataTable dataTable = new DataTable();
@@ -607,10 +628,8 @@ namespace Smart_Temperature_Monitoring
             DataSet ds = new DataSet();
             try
             {
-                //  อ่านค่าจาก Store pGet_actual_value 2022-01-15 00:00:00.000 pGet_Temp_data
+                //  อ่านค่าจาก Store pGet_Temp_data
                 SqlParameterCollection param = new SqlCommand().Parameters;
-                //param.AddWithValue("@start_datetime", SqlDbType.DateTime).Value = "2022-01-13 00:00:00.000";
-                //param.AddWithValue("@end_datetime", SqlDbType.DateTime).Value = "2022-01-13 01:00:00.000";
                 ds = new DBClass().SqlExcSto("pGet_Temp_data", "DbSet", param);
                 dataTable = ds.Tables[0];
             }
@@ -675,7 +694,9 @@ namespace Smart_Temperature_Monitoring
             return dataTable;
         }
 
-        //  Button event
+        ////////////////////////////////////////////////////////////
+        //////////////////////  Button event  //////////////////////
+        ////////////////////////////////////////////////////////////
         private void btnEven1_Click(object sender, EventArgs e)
         {
             _EventZoneId = 1;

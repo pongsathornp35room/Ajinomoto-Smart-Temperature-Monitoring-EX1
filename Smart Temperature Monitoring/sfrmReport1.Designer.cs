@@ -135,6 +135,7 @@
             this.Controls.Add(this.calenReport);
             this.Controls.Add(this.panel1);
             this.Name = "sfrmReport1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Smart Temperature Monitoring  - Report";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

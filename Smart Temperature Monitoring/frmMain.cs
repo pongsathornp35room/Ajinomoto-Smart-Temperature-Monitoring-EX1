@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Smart_Temperature_Monitoring
 {
@@ -24,6 +25,9 @@ namespace Smart_Temperature_Monitoring
         public frmMain()
         {
             InitializeComponent();
+
+            // Set bounds
+            this.Bounds = Screen.AllScreens[Convert.ToInt32(ConfigurationManager.AppSettings["ScreenPosition"].ToString())].Bounds;
         }
         private void frmMain_Load(object sender, EventArgs e)
         {

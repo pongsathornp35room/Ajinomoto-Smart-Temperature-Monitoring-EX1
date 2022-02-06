@@ -30,9 +30,9 @@ namespace Smart_Temperature_Monitoring
             get_zone_name();          
 
             List<sampling_time> list = new List<sampling_time>();
-            list.Add(new sampling_time() { No = "1", Name = "5 Min"});
-            list.Add(new sampling_time() { No = "2", Name = "15 Min" });
-            list.Add(new sampling_time() { No = "3", Name = "30 Min" });
+            list.Add(new sampling_time() { No = "1", Name = "5 Minute"});
+            list.Add(new sampling_time() { No = "2", Name = "15 Minute" });
+            list.Add(new sampling_time() { No = "3", Name = "30 Minute" });
             list.Add(new sampling_time() { No = "4", Name = "1 Hour" });
 
             //Display member and value for combobox Sampling Time
@@ -135,7 +135,9 @@ namespace Smart_Temperature_Monitoring
             }
         }
 
-        // DB interface
+        ////////////////////////////////////////////////////////////
+        ///////////////// SQL interface section  ///////////////////
+        ////////////////////////////////////////////////////////////
         private static DataTable pGet_Temp_Range(int zone_id, DateTime start_date, DateTime end_date, int sampling_no)
         {
             DataTable dataTable = new DataTable();
@@ -189,6 +191,9 @@ namespace Smart_Temperature_Monitoring
             return dataTable;
         }
 
+        ////////////////////////////////////////////////////////////
+        //////////////////////  Button event  //////////////////////
+        ////////////////////////////////////////////////////////////
         private void btnOk_Click(object sender, EventArgs e)
         {
             try
@@ -217,7 +222,7 @@ namespace Smart_Temperature_Monitoring
                         Name = "TempValue",
                         Title = "Temp Value",
                         Values = values1,
-                        Fill = Brushes.Transparent,
+                        //Fill = Brushes.Transparent,
                         PointGeometrySize = 0,
                         StrokeThickness = 2
                     });

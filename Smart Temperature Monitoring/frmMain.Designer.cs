@@ -71,7 +71,7 @@ namespace Smart_Temperature_Monitoring
             this.panel1.Controls.Add(this.panel12);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 880);
+            this.panel1.Location = new System.Drawing.Point(0, 1040);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1920, 40);
             this.panel1.TabIndex = 2;
@@ -346,14 +346,14 @@ namespace Smart_Temperature_Monitoring
             this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelChildForm.Location = new System.Drawing.Point(0, 60);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(1920, 820);
+            this.panelChildForm.Size = new System.Drawing.Size(1920, 980);
             this.panelChildForm.TabIndex = 4;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1920, 920);
+            this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -362,7 +362,7 @@ namespace Smart_Temperature_Monitoring
             this.MinimizeBox = false;
             this.Name = "frmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "frmMain";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.panel1.ResumeLayout(false);

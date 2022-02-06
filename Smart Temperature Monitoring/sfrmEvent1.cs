@@ -18,8 +18,17 @@ namespace Smart_Temperature_Monitoring
             InitializeComponent();
         }
         private void sfrmEvent1_Load(object sender, EventArgs e)
-        {
-            _get_event();
+        {           
+            try
+            {
+                _get_event();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                log.Error("sfrmEvent1_Load Exception : " + ex.Message);
+                this.Close();
+            }
         }
 
         public void _get_event()
@@ -32,7 +41,9 @@ namespace Smart_Temperature_Monitoring
                 gvEvent.ClearSelection();
             }
         }
-
+        ////////////////////////////////////////////////////////////
+        ///////////////// SQL interface section  ///////////////////
+        ////////////////////////////////////////////////////////////
         private static DataTable pGet_event(int zone_id)
         {
             DataTable dataTable = new DataTable();
