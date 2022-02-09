@@ -143,6 +143,7 @@ namespace Smart_Temperature_Monitoring
                 else
                     return;
 
+                //  Add function
                 //  if no_pGet_Temp_data = 0 --> Clear Screen
                 if(no_pGet_Temp_data <= 0)
                     clearAndInit();
