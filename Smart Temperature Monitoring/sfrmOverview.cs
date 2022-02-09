@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace Smart_Temperature_Monitoring
 {
-    
+
     public partial class sfrmOverview : Form
     {
         //  Declare Logging
@@ -23,8 +23,8 @@ namespace Smart_Temperature_Monitoring
 
         //  Global varriable
         public static int _selectedData = 0;
-        public static int _SettingZoneId = 0;  
-        public static int _EventZoneId = 0;        
+        public static int _SettingZoneId = 0;
+        public static int _EventZoneId = 0;
 
         //  Local varriable
         private static DataTable _pGet_Temp_actual = new DataTable();
@@ -32,13 +32,13 @@ namespace Smart_Temperature_Monitoring
         private static DataTable _pGet_Temp_data = new DataTable();
         private static DataTable _pGet_event_all = new DataTable();
 
-        
         private static int sampling_time = 5;   // sampling_time in minute
         private static int sampling_all_day = 24 * 60 / sampling_time;
 
         private static int actualTempID = 0;
         private static int actualGvCell = 0;
         private static int _EventId = 0;
+        private static int _currentCntPoint = 0;
 
         private static DateTime init_date;
         private static DateTime last_date;
@@ -58,10 +58,10 @@ namespace Smart_Temperature_Monitoring
             //  Intial chart & data grid view
             initTempData();
 
-            // clear selection on status           
+            // clear selection on status
             gvData1.ClearSelection();
             gvData2.ClearSelection();
-            gvData3.ClearSelection();            
+            gvData3.ClearSelection();
 
 
             //Create Thread threadSamplingTime --> Update Actual temp. & Trend & Grid status
@@ -73,7 +73,7 @@ namespace Smart_Temperature_Monitoring
             Thread threadUpdateSetting = new Thread(ThreadUpdateSetting);
             threadUpdateSetting.IsBackground = true;
             threadUpdateSetting.Start();
-                 
+
         }
 
 
@@ -84,7 +84,7 @@ namespace Smart_Temperature_Monitoring
             {
                 try
                 {
-                   _actualTemp();
+                    _actualTemp();
                 }
                 catch (Exception ex)
                 {
@@ -94,7 +94,7 @@ namespace Smart_Temperature_Monitoring
                 finally
                 {
                     //  Delay
-                    Thread.Sleep(300000);
+                    Thread.Sleep(1000);
                 }
             }
         }
@@ -126,27 +126,42 @@ namespace Smart_Temperature_Monitoring
         // Run every sampling time : plot data 1 sampling
         public void _actualTemp()
         {
-                        
-
             _pGet_Temp_actual = new DataTable();
             _pGet_Temp_actual = pGet_Temp_actual();
-            if (_pGet_Temp_actual != null)
+
+            if (_pGet_Temp_actual != null && _pGet_Temp_actual.Rows.Count > 0)
             {
+                //  EDIT 2020-02-10 : Check _currentCntPoint
+                //  ADD AUTO CHECK DATA POINT OF LAST ROW FOR UPDATE
+                int no_pGet_Temp_data = 0;
+                DataTable dt = pGet_Temp_data();
+                if (dt != null && dt.Rows.Count > 0)
+                    no_pGet_Temp_data = dt != null && dt.Rows.Count > 0 ? dt.Rows.Count : 0;
+
+                if (_currentCntPoint != no_pGet_Temp_data)
+                    _currentCntPoint = no_pGet_Temp_data;
+                else
+                    return;
+
+                //  if no_pGet_Temp_data = 0 --> Clear Screen
+                if(no_pGet_Temp_data <= 0)
+                    clearAndInit();
+
                 // Formatting initial date to dd-MM-yyyy
                 sinit_date = init_date.ToString("dd-MM-yyyy");
 
                 // Kepp and formatting last date to dd-MM-yyyy
-                last_date = Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]);                
+                last_date = Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]);
                 slast_date = last_date.ToString("dd-MM-yyyy");
 
-                // Check date to clear data 
+                // Check date to clear data
                 if (sinit_date != slast_date)
                 {
                     clearAndInit();
                     init_date = last_date;
                 }
 
-                // actual temp 
+                // actual temp
                 lbValue1.Text = _pGet_Temp_actual.Rows[0]["temp1"].ToString();
                 lbValue2.Text = _pGet_Temp_actual.Rows[0]["temp2"].ToString();
                 lbValue3.Text = _pGet_Temp_actual.Rows[0]["temp3"].ToString();
@@ -154,7 +169,7 @@ namespace Smart_Temperature_Monitoring
                 // Keep actual ID
                 actualTempID = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ID"]);
 
-                // change background coler 
+                // change background coler
                 if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "OK")
                 {
                     panelMain1.BackColor = Color.FromArgb(128, 255, 128);
@@ -189,7 +204,7 @@ namespace Smart_Temperature_Monitoring
                 }
 
                 // plot graph
-                if(chTemp1.Series[0].Values.Count <= sampling_all_day)
+                if (chTemp1.Series[0].Values.Count <= sampling_all_day)
                 {
                     chTemp1.Series[0].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1"])));
                     chTemp1.Series[1].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp1_hi"])));
@@ -204,44 +219,52 @@ namespace Smart_Temperature_Monitoring
                     chTemp3.Series[2].Values.Add(Convert.ToDouble((_pGet_Temp_actual.Rows[0]["temp3_lo"])));
 
                 }
-                
-                //// plot gv status                
+
+                //// plot gv status
                 //gvData1.ClearSelection();
                 //gvData2.ClearSelection();
                 //gvData3.ClearSelection();
+                try
+                {
+                    if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
+                    {
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else
+                    {
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    }
 
-                if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
-                {
-                    gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
-                    gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "NG")
+                    {
+                        gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else
+                    {
+                        gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    }
+
+                    if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "NG")
+                    {
+                        gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
+                        gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else
+                    {
+                        gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
+                        gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
-                    gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
+                    MessageBox.Show("ThreadSamplingTime Exception (gvData1) : " + ex.Message);
+                    log.Error("ThreadSamplingTime Exception (gvData1)  : " + ex.Message);
                 }
 
-                if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "NG")
-                {
-                    gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
-                    gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
-                }
-                else
-                {
-                    gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
-                    gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
-                }
-
-                if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "NG")
-                {
-                    gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
-                    gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
-                }
-                else
-                {
-                    gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(128, 255, 128);
-                    gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
-                }
                 actualGvCell += 1;
             }
         }
@@ -251,7 +274,7 @@ namespace Smart_Temperature_Monitoring
         {
             _pGet_setting_actual = new DataTable();
             _pGet_setting_actual = pGet_setting_actual();
-            if (_pGet_setting_actual != null)
+            if (_pGet_setting_actual != null && _pGet_setting_actual.Rows.Count > 0)
             {
                 lbZone1.Text = _pGet_setting_actual.Rows[0]["zone_name"].ToString();
                 lbLow1.Text = _pGet_setting_actual.Rows[0]["limit_low"].ToString();
@@ -272,24 +295,24 @@ namespace Smart_Temperature_Monitoring
         {
             _pGet_event_all = new DataTable();
             _pGet_event_all = pGet_event_all();
-                        
-            if (_pGet_event_all != null)
-            {  
-                if (_EventId != Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]))
-                {                
 
-                    //  Clear gv                
+            if (_pGet_event_all != null)
+            {
+                if (_EventId != Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]))
+                {
+
+                    //  Clear gv
                     gvEventAll.Rows.Clear();
-                    
+
                     // Plot data to gridView
-                    for (int i = 0; i < _pGet_event_all.Rows.Count ; i++)
+                    for (int i = 0; i < _pGet_event_all.Rows.Count; i++)
                         gvEventAll.Rows.Add(_pGet_event_all.Rows[i]["create_datetime"], _pGet_event_all.Rows[i]["zone_name"], _pGet_event_all.Rows[i]["event_detail"]);
-                    
+
                     // Keep Id for check next time
                     _EventId = Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]);
 
                     gvEventAll.ClearSelection();
-                }                
+                }
             }
         }
 
@@ -298,7 +321,7 @@ namespace Smart_Temperature_Monitoring
         {
             _pGet_Temp_data = new DataTable();
             _pGet_Temp_data = pGet_Temp_data();
-            if (_pGet_Temp_data != null)
+            if (_pGet_Temp_data != null && _pGet_Temp_data.Rows.Count > 0)
             {
                 var values1 = new ChartValues<double>();
                 var values2 = new ChartValues<double>();
@@ -317,7 +340,7 @@ namespace Smart_Temperature_Monitoring
                 init_date = Convert.ToDateTime(_pGet_Temp_data.Rows[0]["create_datetime"]);
 
                 // plot graph
-                for (var i = 0; (i < _pGet_Temp_data.Rows.Count && i < sampling_all_day) ; i++)
+                for (var i = 0; (i < _pGet_Temp_data.Rows.Count && i < sampling_all_day); i++)
                 {
                     values1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1"]));
                     hi1.Add(Convert.ToDouble(_pGet_Temp_data.Rows[i]["temp1_hi"]));
@@ -432,7 +455,7 @@ namespace Smart_Temperature_Monitoring
 
                 IList<string> labelX = new List<string>();
                 for (int i = 0; i <= sampling_all_day; i++)
-                    labelX.Add(System.DateTime.MinValue.AddMinutes(i* sampling_time).ToString("HH:mm"));
+                    labelX.Add(System.DateTime.MinValue.AddMinutes(i * sampling_time).ToString("HH:mm"));
 
                 chTemp1.AxisX.Add(new Axis
                 {
@@ -505,7 +528,7 @@ namespace Smart_Temperature_Monitoring
                         gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
                     }
-                    else 
+                    else
                     {
                         gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(128, 255, 128);
                         gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
@@ -753,7 +776,7 @@ namespace Smart_Temperature_Monitoring
             sfrmData1 sfrmData1 = new sfrmData1();
             sfrmData1.Show();
         }
-        
+
         private void btnSetting1_Click(object sender, EventArgs e)
         {
             _SettingZoneId = 1;
@@ -842,7 +865,7 @@ namespace Smart_Temperature_Monitoring
             LineNotifyMsg("hj1TGTJOwYq8L78D2fYbhPKQhOAsgaG1KfJ1QRLa3Tb", message);
         }
 
-        
+
 
 
     }

@@ -208,7 +208,7 @@ namespace Smart_Temperature_Monitoring
                 cartesianChart1.AxisX.Clear();
                 cartesianChart1.AxisY.Clear();
 
-                if (_pGet_Temp_data != null)
+                if (_pGet_Temp_data != null && _pGet_Temp_data.Rows.Count > 0)
                 {
                     cartesianChart1.Series.Clear();
                     var values1 = new ChartValues<double>();
