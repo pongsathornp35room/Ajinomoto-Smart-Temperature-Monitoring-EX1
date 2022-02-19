@@ -35,20 +35,16 @@ namespace Smart_Temperature_Monitoring
         private static int sampling_time = 5;   // sampling_time in minute
         private static int sampling_all_day = 24 * 60 / sampling_time;
 
-        private static int actualTempID = 0;
         private static int actualGvCell = 0;
         private static int _EventId = 0;
-        private static int _currentCntPoint = 0;
+        private static int _currentCntPoint = 0;       
 
-        private static DateTime init_date;
-        private static DateTime last_date;
-        private static string sinit_date;
-        private static string slast_date;
 
         //  Form load
         public sfrmOverview()
         {
             InitializeComponent();
+                       
         }
         private void sfrmOverview_Load(object sender, EventArgs e)
         {
@@ -125,50 +121,29 @@ namespace Smart_Temperature_Monitoring
 
         // Run every sampling time : plot data 1 sampling
         public void _actualTemp()
-        {
+        {                        
+            //  EDIT 2020-02-10 : Check _currentCntPoint
+            //  ADD AUTO CHECK DATA POINT OF LAST ROW FOR UPDATE
+            int no_pGet_Temp_data = 0;
+            DataTable dt = pGet_Temp_data();  // Get today data
+            if (dt != null && dt.Rows.Count > 0)
+                no_pGet_Temp_data = dt.Rows.Count; // if have today data --> no_pGet_Temp_data = today data count
+            else
+            {
+                if (actualGvCell != 0)
+                    clearAndInit();
+                return;
+            }
+
             _pGet_Temp_actual = new DataTable();
             _pGet_Temp_actual = pGet_Temp_actual();
 
             if (_pGet_Temp_actual != null && _pGet_Temp_actual.Rows.Count > 0)
-            {
-                //  EDIT 2020-02-10 : Check _currentCntPoint
-                //  ADD AUTO CHECK DATA POINT OF LAST ROW FOR UPDATE
-                int no_pGet_Temp_data = 0;
-                DataTable dt = pGet_Temp_data();
-                if (dt != null && dt.Rows.Count > 0)
-                    no_pGet_Temp_data = dt != null && dt.Rows.Count > 0 ? dt.Rows.Count : 0;
-
-                if (_currentCntPoint != no_pGet_Temp_data)
-                    _currentCntPoint = no_pGet_Temp_data;
-                else
-                    return;
-
-                //  Add function
-                //  if no_pGet_Temp_data = 0 --> Clear Screen
-                if(no_pGet_Temp_data <= 0)
-                    clearAndInit();
-
-                // Formatting initial date to dd-MM-yyyy
-                sinit_date = init_date.ToString("dd-MM-yyyy");
-
-                // Kepp and formatting last date to dd-MM-yyyy
-                last_date = Convert.ToDateTime(_pGet_Temp_actual.Rows[0]["create_datetime"]);
-                slast_date = last_date.ToString("dd-MM-yyyy");
-
-                // Check date to clear data
-                if (sinit_date != slast_date)
-                {
-                    clearAndInit();
-                    init_date = last_date;
-                }
-
+            { 
                 // actual temp
                 lbValue1.Text = _pGet_Temp_actual.Rows[0]["temp1"].ToString();
                 lbValue2.Text = _pGet_Temp_actual.Rows[0]["temp2"].ToString();
                 lbValue3.Text = _pGet_Temp_actual.Rows[0]["temp3"].ToString();
-
-                // Keep actual ID
-                actualTempID = Convert.ToInt32(_pGet_Temp_actual.Rows[0]["ID"]);
 
                 // change background coler
                 if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "OK")
@@ -204,6 +179,12 @@ namespace Smart_Temperature_Monitoring
                     lbZone3.BackColor = Color.Red;
                 }
 
+                // Check new data
+                if (_currentCntPoint != no_pGet_Temp_data)
+                    _currentCntPoint = no_pGet_Temp_data;
+                else
+                    return;   // Not have new data  
+
                 // plot graph
                 if (chTemp1.Series[0].Values.Count <= sampling_all_day)
                 {
@@ -221,10 +202,7 @@ namespace Smart_Temperature_Monitoring
 
                 }
 
-                //// plot gv status
-                //gvData1.ClearSelection();
-                //gvData2.ClearSelection();
-                //gvData3.ClearSelection();
+                // plot status
                 try
                 {
                     if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
@@ -320,6 +298,10 @@ namespace Smart_Temperature_Monitoring
         // First time start up : plot data all day
         public void initTempData()
         {
+            DataTable dt = pGet_Temp_data();  // Get today data
+            if (dt != null && dt.Rows.Count > 0)
+                _currentCntPoint = dt.Rows.Count; // if have today data --> no_pGet_Temp_data = today data count
+
             _pGet_Temp_data = new DataTable();
             _pGet_Temp_data = pGet_Temp_data();
             if (_pGet_Temp_data != null && _pGet_Temp_data.Rows.Count > 0)
@@ -337,8 +319,7 @@ namespace Smart_Temperature_Monitoring
                 var hi3 = new ChartValues<double>();
                 var lo3 = new ChartValues<double>();
 
-                // Keep initial date
-                init_date = Convert.ToDateTime(_pGet_Temp_data.Rows[0]["create_datetime"]);
+                
 
                 // plot graph
                 for (var i = 0; (i < _pGet_Temp_data.Rows.Count && i < sampling_all_day); i++)
@@ -386,7 +367,6 @@ namespace Smart_Temperature_Monitoring
                     PointGeometrySize = 0,
                     Stroke = Brushes.Salmon,
                     StrokeThickness = 1
-
                 });
 
                 chTemp2.Series.Add(new LineSeries
@@ -452,7 +432,6 @@ namespace Smart_Temperature_Monitoring
                     Stroke = Brushes.Salmon,
                     StrokeThickness = 1
                 });
-
 
                 IList<string> labelX = new List<string>();
                 for (int i = 0; i <= sampling_all_day; i++)
@@ -559,12 +538,6 @@ namespace Smart_Temperature_Monitoring
 
                     actualGvCell = _pGet_Temp_data.Rows.Count;
                 }
-
-                // Keep setting id
-                //if (_pGet_Temp_data.Rows.Count > 0)
-                //{
-                //    actualTempID = Convert.ToInt32(_pGet_Temp_data.Rows[_pGet_Temp_data.Rows.Count - 1]["ID"]);
-                //}
 
             }
 

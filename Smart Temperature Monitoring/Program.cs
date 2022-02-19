@@ -19,7 +19,6 @@ namespace Smart_Temperature_Monitoring
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmMain());
-            //Application.Run(new Form1());
         }
     }
 }

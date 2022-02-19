@@ -17,6 +17,8 @@ namespace Smart_Temperature_Monitoring
 
         public DateTime dt = DateTime.Now;
 
+        private static int _monitorCount = 0;
+
         //  Local varriables
         private Form _activeForm = null;
         Color[] _blinkBgTimeColor = { Color.FromArgb(37, 37, 38), Color.FromArgb(186, 218, 85) };
@@ -26,8 +28,15 @@ namespace Smart_Temperature_Monitoring
         {
             InitializeComponent();
 
+            // Count monitor
+            foreach (var screen in Screen.AllScreens)
+                _monitorCount++;
+
             // Set bounds
-            this.Bounds = Screen.AllScreens[Convert.ToInt32(ConfigurationManager.AppSettings["ScreenPosition"].ToString())].Bounds;
+            if (_monitorCount == 2)
+                this.Bounds = Screen.AllScreens[Convert.ToInt32(ConfigurationManager.AppSettings["ScreenPosition"].ToString())].Bounds;
+            else
+                this.Bounds = Screen.AllScreens[0].Bounds;
         }
         private void frmMain_Load(object sender, EventArgs e)
         {

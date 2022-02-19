@@ -71,9 +71,9 @@ namespace Smart_Temperature_Monitoring
             this.panel1.Controls.Add(this.panel12);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 1040);
+            this.panel1.Location = new System.Drawing.Point(0, 748);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1920, 40);
+            this.panel1.Size = new System.Drawing.Size(1386, 40);
             this.panel1.TabIndex = 2;
             // 
             // panel12
@@ -81,7 +81,7 @@ namespace Smart_Temperature_Monitoring
             this.panel12.BackColor = System.Drawing.Color.White;
             this.panel12.Controls.Add(this.pictureBox4);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel12.Location = new System.Drawing.Point(1802, 0);
+            this.panel12.Location = new System.Drawing.Point(1268, 0);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(118, 40);
             this.panel12.TabIndex = 2;
@@ -105,7 +105,7 @@ namespace Smart_Temperature_Monitoring
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1920, 40);
+            this.label1.Size = new System.Drawing.Size(1386, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "Copyright © 2022 Ajinomoto Co., (Thailand) Ltd. All rights reserved.";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -136,7 +136,7 @@ namespace Smart_Temperature_Monitoring
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 3, 1, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1920, 60);
+            this.panel2.Size = new System.Drawing.Size(1386, 60);
             this.panel2.TabIndex = 3;
             // 
             // label6
@@ -171,7 +171,7 @@ namespace Smart_Temperature_Monitoring
             this.PnReFeed.Controls.Add(this.panel56);
             this.PnReFeed.Controls.Add(this.panel55);
             this.PnReFeed.Dock = System.Windows.Forms.DockStyle.Right;
-            this.PnReFeed.Location = new System.Drawing.Point(1412, 0);
+            this.PnReFeed.Location = new System.Drawing.Point(878, 0);
             this.PnReFeed.Name = "PnReFeed";
             this.PnReFeed.Size = new System.Drawing.Size(508, 60);
             this.PnReFeed.TabIndex = 23;
@@ -346,14 +346,14 @@ namespace Smart_Temperature_Monitoring
             this.panelChildForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelChildForm.Location = new System.Drawing.Point(0, 60);
             this.panelChildForm.Name = "panelChildForm";
-            this.panelChildForm.Size = new System.Drawing.Size(1920, 980);
+            this.panelChildForm.Size = new System.Drawing.Size(1386, 688);
             this.panelChildForm.TabIndex = 4;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1920, 1080);
+            this.ClientSize = new System.Drawing.Size(1386, 788);
             this.Controls.Add(this.panelChildForm);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -363,7 +363,7 @@ namespace Smart_Temperature_Monitoring
             this.Name = "frmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "frmMain";
+            this.Text = "Temp Monitor EX1";
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.panel1.ResumeLayout(false);
             this.panel12.ResumeLayout(false);

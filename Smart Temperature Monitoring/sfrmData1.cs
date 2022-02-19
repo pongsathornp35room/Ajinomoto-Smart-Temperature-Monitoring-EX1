@@ -26,8 +26,9 @@ namespace Smart_Temperature_Monitoring
         public sfrmData1()
         {
             InitializeComponent();
+            get_zone_name();
             initTempData();
-            get_zone_name();          
+                     
 
             List<sampling_time> list = new List<sampling_time>();
             list.Add(new sampling_time() { No = "1", Name = "5 Minute"});
@@ -47,7 +48,7 @@ namespace Smart_Temperature_Monitoring
         {
             _pGet_Temp_data = new DataTable();
             _pGet_Temp_data = pGet_Temp_Range(Convert.ToInt32(cbbSelectedZone.SelectedValue), dtDateFrom.Value.Date, dtDateTo.Value, Convert.ToInt32(cbbSampling.SelectedValue));
-            if (_pGet_Temp_data != null)
+            if (_pGet_Temp_data != null && _pGet_Temp_data.Rows.Count > 0)
             {
                 var values1 = new ChartValues<double>();
                 for (var i = 0; i < _pGet_Temp_data.Rows.Count; i++)
