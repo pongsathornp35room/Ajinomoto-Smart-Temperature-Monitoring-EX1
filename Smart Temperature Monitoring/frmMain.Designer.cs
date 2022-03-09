@@ -36,7 +36,7 @@ namespace Smart_Temperature_Monitoring
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.txtArea = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.PnReFeed = new System.Windows.Forms.Panel();
             this.panel60 = new System.Windows.Forms.Panel();
@@ -125,7 +125,7 @@ namespace Smart_Temperature_Monitoring
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(88)))), ((int)(((byte)(173)))));
-            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.txtArea);
             this.panel2.Controls.Add(this.pictureBox5);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Controls.Add(this.PnReFeed);
@@ -139,17 +139,17 @@ namespace Smart_Temperature_Monitoring
             this.panel2.Size = new System.Drawing.Size(1386, 60);
             this.panel2.TabIndex = 3;
             // 
-            // label6
+            // txtArea
             // 
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(88)))), ((int)(((byte)(173)))));
-            this.label6.Font = new System.Drawing.Font("Calibri", 28F);
-            this.label6.ForeColor = System.Drawing.Color.Yellow;
-            this.label6.Location = new System.Drawing.Point(676, 5);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(117, 47);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "EX-1";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.txtArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(88)))), ((int)(((byte)(173)))));
+            this.txtArea.Font = new System.Drawing.Font("Calibri", 28F);
+            this.txtArea.ForeColor = System.Drawing.Color.Yellow;
+            this.txtArea.Location = new System.Drawing.Point(676, 5);
+            this.txtArea.Name = "txtArea";
+            this.txtArea.Size = new System.Drawing.Size(117, 47);
+            this.txtArea.TabIndex = 3;
+            this.txtArea.Text = "EX";
+            this.txtArea.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -401,7 +401,7 @@ namespace Smart_Temperature_Monitoring
         private System.Windows.Forms.Panel panel59;
         private System.Windows.Forms.Panel panel58;
         private System.Windows.Forms.Panel panel55;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label txtArea;
         private System.Windows.Forms.Label label4;
         internal System.Windows.Forms.Label label13;
     }
