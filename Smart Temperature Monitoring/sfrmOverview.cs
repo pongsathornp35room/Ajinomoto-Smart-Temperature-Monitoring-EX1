@@ -151,6 +151,11 @@ namespace Smart_Temperature_Monitoring
                     panelMain1.BackColor = Color.FromArgb(128, 255, 128);
                     lbZone1.BackColor = Color.FromArgb(0, 192, 0);
                 }
+                else if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "H")
+                {
+                    panelMain1.BackColor = Color.FromArgb(255, 192, 128);
+                    lbZone1.BackColor = Color.FromArgb(255, 128, 0);
+                }
                 else
                 {
                     panelMain1.BackColor = Color.FromArgb(255, 128, 128);
@@ -162,6 +167,11 @@ namespace Smart_Temperature_Monitoring
                     panelMain2.BackColor = Color.FromArgb(128, 255, 128);
                     lbZone2.BackColor = Color.FromArgb(0, 192, 0);
                 }
+                else if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "H")
+                {
+                    panelMain2.BackColor = Color.FromArgb(255, 192, 128);
+                    lbZone2.BackColor = Color.FromArgb(255, 128, 0);
+                }
                 else
                 {
                     panelMain2.BackColor = Color.FromArgb(255, 128, 128);
@@ -172,6 +182,11 @@ namespace Smart_Temperature_Monitoring
                 {
                     panelMain3.BackColor = Color.FromArgb(128, 255, 128);
                     lbZone3.BackColor = Color.FromArgb(0, 192, 0);
+                }
+                else if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "H")
+                {
+                    panelMain3.BackColor = Color.FromArgb(255, 192, 128);
+                    lbZone3.BackColor = Color.FromArgb(255, 128, 0);
                 }
                 else
                 {
@@ -212,8 +227,8 @@ namespace Smart_Temperature_Monitoring
                     }
                     else if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "H")
                     {
-                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
-                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
@@ -228,8 +243,8 @@ namespace Smart_Temperature_Monitoring
                     }
                     else if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "H")
                     {
-                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
-                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
+                        gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
@@ -244,8 +259,8 @@ namespace Smart_Temperature_Monitoring
                     }
                     else if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "H")
                     {
-                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
-                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
+                        gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
@@ -518,10 +533,15 @@ namespace Smart_Temperature_Monitoring
 
                 for (int i = 0; i < _pGet_Temp_data.Rows.Count && i < sampling_all_day; i++)
                 {
-                    if (status1[i] == "NG")
+                    if (status1[i] == "HH")
                     {
                         gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if (status1[i] == "H")
+                    {
+                        gvData1.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
@@ -529,10 +549,15 @@ namespace Smart_Temperature_Monitoring
                         gvData1.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
                     }
 
-                    if (status2[i] == "NG")
+                    if (status2[i] == "HH")
                     {
                         gvData2.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if (status2[i] == "H")
+                    {
+                        gvData2.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
@@ -540,10 +565,15 @@ namespace Smart_Temperature_Monitoring
                         gvData2.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(128, 255, 128);
                     }
 
-                    if (status3[i] == "NG")
+                    if (status3[i] == "HH")
                     {
                         gvData3.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData3.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if (status3[i] == "H")
+                    {
+                        gvData3.Rows[0].Cells[i].Style.BackColor = Color.FromArgb(255, 192, 128);
+                        gvData3.Rows[0].Cells[i].Style.ForeColor = Color.FromArgb(255, 192, 128);
                     }
                     else
                     {
