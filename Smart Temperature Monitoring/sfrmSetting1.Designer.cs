@@ -124,7 +124,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(180, 30);
             this.label3.TabIndex = 49;
-            this.label3.Text = "TEMP. LOW LIMIT";
+            this.label3.Text = "LIMIT HIGH ";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
@@ -157,7 +157,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(180, 30);
             this.label2.TabIndex = 49;
-            this.label2.Text = "TEMP. HIGH LIMIT";
+            this.label2.Text = "LIMIT HIGH HIGH";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1

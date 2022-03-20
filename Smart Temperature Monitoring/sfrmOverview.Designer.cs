@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(sfrmOverview));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelMain2 = new System.Windows.Forms.Panel();
             this.lbZone2 = new System.Windows.Forms.Label();
             this.lbHigh2 = new System.Windows.Forms.Label();
@@ -944,6 +945,7 @@
             this.Zone = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Event = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panelMain2.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -994,6 +996,7 @@
             this.lbHigh2.TabIndex = 4;
             this.lbHigh2.Text = "0.0";
             this.lbHigh2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbHigh2, "Limit High High");
             this.lbHigh2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbHigh_MouseDoubleClick);
             // 
             // lbLow2
@@ -1005,6 +1008,7 @@
             this.lbLow2.TabIndex = 4;
             this.lbLow2.Text = "0.0";
             this.lbLow2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbLow2, "Limit High");
             this.lbLow2.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbLow_MouseDoubleClick);
             // 
             // lbValue2
@@ -1016,6 +1020,7 @@
             this.lbValue2.TabIndex = 3;
             this.lbValue2.Text = "0.0";
             this.lbValue2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbValue2, "Actual Value");
             this.lbValue2.DoubleClick += new System.EventHandler(this.lbValue_DoubleClick);
             // 
             // panel7
@@ -3126,6 +3131,7 @@
             this.lbHigh3.TabIndex = 4;
             this.lbHigh3.Text = "0.0";
             this.lbHigh3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbHigh3, "Limit High High");
             this.lbHigh3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbHigh_MouseDoubleClick);
             // 
             // lbLow3
@@ -3137,6 +3143,7 @@
             this.lbLow3.TabIndex = 4;
             this.lbLow3.Text = "0.0";
             this.lbLow3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbLow3, "Limit High");
             this.lbLow3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbLow_MouseDoubleClick);
             // 
             // lbValue3
@@ -3148,6 +3155,7 @@
             this.lbValue3.TabIndex = 3;
             this.lbValue3.Text = "0.0";
             this.lbValue3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbValue3, "Actual Value");
             this.lbValue3.DoubleClick += new System.EventHandler(this.lbValue_DoubleClick);
             // 
             // panel8
@@ -5414,7 +5422,7 @@
             // 
             // lbZone1
             // 
-            this.lbZone1.BackColor = System.Drawing.Color.Red;
+            this.lbZone1.BackColor = System.Drawing.Color.OrangeRed;
             this.lbZone1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbZone1.Location = new System.Drawing.Point(0, 0);
             this.lbZone1.Name = "lbZone1";
@@ -5432,6 +5440,7 @@
             this.lbHigh1.TabIndex = 4;
             this.lbHigh1.Text = "0.0";
             this.lbHigh1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbHigh1, "Limit High High");
             this.lbHigh1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbHigh_MouseDoubleClick);
             // 
             // lbLow1
@@ -5443,6 +5452,7 @@
             this.lbLow1.TabIndex = 4;
             this.lbLow1.Text = "0.0";
             this.lbLow1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbLow1, "Limit High");
             this.lbLow1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbLow_MouseDoubleClick);
             // 
             // lbValue1
@@ -5454,6 +5464,7 @@
             this.lbValue1.TabIndex = 3;
             this.lbValue1.Text = "0.0";
             this.lbValue1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.toolTip1.SetToolTip(this.lbValue1, "Actual Value");
             this.lbValue1.DoubleClick += new System.EventHandler(this.lbValue_DoubleClick);
             // 
             // panel4
@@ -7630,14 +7641,14 @@
             this.gvEventAll.BackgroundColor = System.Drawing.Color.White;
             this.gvEventAll.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.gvEventAll.CausesValidation = false;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvEventAll.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvEventAll.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gvEventAll.ColumnHeadersHeight = 30;
             this.gvEventAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.gvEventAll.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -7645,32 +7656,32 @@
             this.Zone,
             this.Event,
             this.Status});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gvEventAll.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gvEventAll.DefaultCellStyle = dataGridViewCellStyle2;
             this.gvEventAll.Enabled = false;
             this.gvEventAll.Location = new System.Drawing.Point(9, 800);
             this.gvEventAll.MultiSelect = false;
             this.gvEventAll.Name = "gvEventAll";
             this.gvEventAll.ReadOnly = true;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.gvEventAll.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gvEventAll.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.gvEventAll.RowHeadersVisible = false;
             this.gvEventAll.RowHeadersWidth = 42;
             this.gvEventAll.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gvEventAll.RowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gvEventAll.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.gvEventAll.RowTemplate.Height = 30;
             this.gvEventAll.ShowCellErrors = false;
             this.gvEventAll.ShowCellToolTips = false;
@@ -8653,5 +8664,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Zone;
         private System.Windows.Forms.DataGridViewTextBoxColumn Event;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

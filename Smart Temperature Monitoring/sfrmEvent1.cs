@@ -38,6 +38,10 @@ namespace Smart_Temperature_Monitoring
             if (_pGet_event != null)
             {
                 gvEvent.DataSource = _pGet_event;
+                gvEvent.Columns[0].Width = 200;
+                gvEvent.Columns[1].Width = 100;
+                gvEvent.Columns[3].Width = 100;
+                gvEvent.Columns[2].Width = gvEvent.Width - (gvEvent.Columns[0].Width + gvEvent.Columns[1].Width + gvEvent.Columns[3].Width);
                 gvEvent.ClearSelection();
             }
         }

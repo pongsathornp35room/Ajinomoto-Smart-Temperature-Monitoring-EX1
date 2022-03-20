@@ -270,7 +270,7 @@ namespace Smart_Temperature_Monitoring
                     Directory.CreateDirectory(DestinationPath);
                 }
 
-                string dt = "EXPORT_TEMP_EX1" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv";
+                string dt = "EXPORT_TEMP_" + cbbSelectedZone.Text + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".csv";
                 string filePath = DestinationPath + dt ;
                 CreateCSVFile(ref _pGet_Temp_data, filePath);
 

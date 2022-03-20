@@ -205,10 +205,15 @@ namespace Smart_Temperature_Monitoring
                 // plot status
                 try
                 {
-                    if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "NG")
+                    if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "HH")
                     {
                         gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if ((_pGet_Temp_actual.Rows[0]["temp1_result"]).ToString() == "H")
+                    {
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
                     }
                     else
                     {
@@ -216,10 +221,15 @@ namespace Smart_Temperature_Monitoring
                         gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
                     }
 
-                    if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "NG")
+                    if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "HH")
                     {
                         gvData2.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if ((_pGet_Temp_actual.Rows[0]["temp2_result"]).ToString() == "H")
+                    {
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
                     }
                     else
                     {
@@ -227,10 +237,15 @@ namespace Smart_Temperature_Monitoring
                         gvData2.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(128, 255, 128);
                     }
 
-                    if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "NG")
+                    if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "HH")
                     {
                         gvData3.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 128);
                         gvData3.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 128);
+                    }
+                    else if ((_pGet_Temp_actual.Rows[0]["temp3_result"]).ToString() == "H")
+                    {
+                        gvData1.Rows[0].Cells[actualGvCell].Style.BackColor = Color.FromArgb(255, 128, 0);
+                        gvData1.Rows[0].Cells[actualGvCell].Style.ForeColor = Color.FromArgb(255, 128, 0);
                     }
                     else
                     {
@@ -285,7 +300,7 @@ namespace Smart_Temperature_Monitoring
 
                     // Plot data to gridView
                     for (int i = 0; i < _pGet_event_all.Rows.Count; i++)
-                        gvEventAll.Rows.Add(_pGet_event_all.Rows[i]["create_datetime"], _pGet_event_all.Rows[i]["zone_name"], _pGet_event_all.Rows[i]["event_detail"]);
+                        gvEventAll.Rows.Add(_pGet_event_all.Rows[i]["create_datetime"], _pGet_event_all.Rows[i]["zone_name"], _pGet_event_all.Rows[i]["event_detail"], _pGet_event_all.Rows[i]["event_type"]);
 
                     // Keep Id for check next time
                     _EventId = Convert.ToInt32(_pGet_event_all.Rows[0]["ID"]);
@@ -349,23 +364,23 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp1.Series.Add(new LineSeries
                 {
-                    Name = "LimitHigh",
-                    Title = "Limit High",
+                    Name = "LimitHiHi",
+                    Title = "Limit Hi Hi",
                     Values = hi1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkRed,
                     StrokeThickness = 1
                 });
 
                 chTemp1.Series.Add(new LineSeries
                 {
-                    Name = "LimitLow",
-                    Title = "Limit Low",
+                    Name = "LimitHi",
+                    Title = "Limit Hi",
                     Values = lo1,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkOrange,
                     StrokeThickness = 1
                 });
 
@@ -381,23 +396,23 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp2.Series.Add(new LineSeries
                 {
-                    Name = "LimitHigh",
-                    Title = "Limit High",
+                    Name = "LimitHiHi",
+                    Title = "Limit Hi Hi",
                     Values = hi2,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkRed,
                     StrokeThickness = 1
                 });
 
                 chTemp2.Series.Add(new LineSeries
                 {
-                    Name = "LimitLow",
-                    Title = "Limit Low",
+                    Name = "LimitHi",
+                    Title = "Limit Hi",
                     Values = lo2,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkOrange,
                     StrokeThickness = 1
                 });
 
@@ -413,23 +428,23 @@ namespace Smart_Temperature_Monitoring
 
                 chTemp3.Series.Add(new LineSeries
                 {
-                    Name = "LimitHigh",
-                    Title = "Limit High",
+                    Name = "LimitHiHi",
+                    Title = "Limit Hi Hi",
                     Values = hi3,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkRed,
                     StrokeThickness = 1
                 });
 
                 chTemp3.Series.Add(new LineSeries
                 {
-                    Name = "LimitLow",
-                    Title = "Limit Low",
+                    Name = "LimitHi",
+                    Title = "Limit Hi",
                     Values = lo3,
                     Fill = Brushes.Transparent,
                     PointGeometrySize = 0,
-                    Stroke = Brushes.Salmon,
+                    Stroke = Brushes.DarkOrange,
                     StrokeThickness = 1
                 });
 
